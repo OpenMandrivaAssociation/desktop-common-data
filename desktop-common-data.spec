@@ -1,0 +1,220 @@
+Summary:	Desktop common files 
+Name:		desktop-common-data
+Version:	2007.1
+Release: 	%mkrel 11
+License:	GPL
+URL:		http://www.mandrivalinux.com/
+Group:		System/Configuration/Other
+
+# get the source from our svn repository (svn+ssh://svn.mandriva.com/svn/soft/desktop-common-data/)
+# no extra source or patch are allowed here.
+Source:		%{name}-%{version}.tar.bz2
+
+BuildRoot:	%_tmppath/%name-%version-%release-root
+BuildRequires:	intltool
+BuildRequires:  mdk-menu-messages
+BuildRequires:  gettext
+BuildArch:	noarch
+Requires:	mandriva-theme
+Obsoletes:	mandrake_desk
+Provides:	mandrake_desk
+Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
+Obsoletes:	menu
+Obsoletes:	menu-xdg
+Provides:	menu-xdg
+Provides:	menu = 2.1.24
+Requires:	mdk-menu-messages >= 10.2-7mdk
+Requires:	xdg-utils
+Conflicts:      kdelibs-common < 30000000:3.5.2
+
+%description
+This package contains useful icons, menu structure and others goodies for the
+Mandriva Linux desktop.
+
+%prep
+
+
+
+%setup -q
+
+%install
+rm -rf %buildroot
+
+## Install backgrounds
+# User & root's backgrounds
+install -d -m 0755 %buildroot/%_datadir/mdk/backgrounds/
+install -m 0644 backgrounds/flower.jpg %buildroot/%_datadir/mdk/backgrounds/
+install -m 0644 backgrounds/nature.jpg %buildroot/%_datadir/mdk/backgrounds/
+
+# XFdrake test card
+install -d -m 0755 %buildroot/%_datadir/mdk/xfdrake/
+install -m 0644 backgrounds/xfdrake-test-card.png %buildroot/%_datadir/mdk/xfdrake/xfdrake-test-card.png
+
+
+
+## Install scripts
+# /usr/bin/
+install -d -m 0755 %buildroot/%_bindir/
+for i in bin/*.sh ; do install -m 0755 $i %buildroot/%_bindir/ ; done
+install -m 0755 bin/www-browser %buildroot/%_bindir/
+install -m 0755 bin/xvt %buildroot/%_bindir/
+
+# /usr/sbin/
+install -d -m 0755 %buildroot/%_sbindir/
+for i in sbin/* ; do install -m 0755 $i %buildroot/%_sbindir/ ; done
+
+# /etc/X11/xinit.d/
+install -d -m 0755 %buildroot/%_sysconfdir/X11/xinit.d/
+for i in xinit.d/* ; do install -m 0755 $i %buildroot/%_sysconfdir/X11/xinit.d/ ; done
+
+
+## Install faces
+install -d -m 0755 %buildroot/%_datadir/mdk/faces/
+install -d -m 0755 %buildroot/%_datadir/faces/
+for i in faces/*.png ; do install -m 0644 $i %buildroot/%_datadir/mdk/faces/ ; done
+		
+# David - 9.0-5mdk - For KDE
+install -m 0644 faces/default.png %buildroot/%_datadir/faces/default.png
+
+# David - 9.0-5mdk - For GDM
+install -m 0644 faces/default.png %buildroot/%_datadir/faces/user-default-mdk.png
+
+
+
+## KDE
+# kdm
+install -d -m 0755 %buildroot/%_datadir/apps/kdm/pics/
+install -m 0644 kde/kdm-mdk-logo.png %buildroot/%_datadir/apps/kdm/pics/
+
+
+
+## icons
+install -d -m 0755 %buildroot/%_miconsdir %buildroot/%_liconsdir
+install -m 0644 menu/icons/*.png %buildroot/%_iconsdir
+install -m 0644 menu/icons/large/*.png %buildroot/%_liconsdir
+install -m 0644 menu/icons/mini/*.png %buildroot/%_miconsdir
+
+# XDG menus
+install -d -m 0755 %buildroot/%_sysconfdir/xdg/menus/applications-merged  %buildroot/%_sysconfdir/xdg/discovery/menus/applications-merged
+install -d -m 0755 %buildroot/%_sysconfdir/menu.d %buildroot/%_sysconfdir/profile.d
+install -m 0644 menu/applications-mdk.menu %buildroot/%_sysconfdir/xdg/menus/applications.menu
+install -m 0644 menu/applications-discovery.menu %buildroot/%_sysconfdir/xdg/discovery/menus/applications.menu
+install -m 0644 menu/mandriva-discovery.menu %buildroot/%_sysconfdir/xdg/discovery/menus/mandriva-discovery.menu
+install -m 0755 menu/xdg_menu %buildroot/%_bindir
+install -m 0755 menu/update-menus %buildroot/%_bindir/update-menus
+install -m 0755 menu/menustyle.sh menu/menustyle.csh %buildroot/%_sysconfdir/profile.d
+
+install -d -m 0755 %buildroot/%_datadir/desktop-directories
+mkdir tmp-l10n
+for i in %_datadir/locale/*/LC_MESSAGES/menu-messages.mo ; do
+ msgunfmt $i > tmp-l10n/`echo $i | sed -e 's|%{_datadir}/locale/||' -e 's|/LC.*||'`.po
+done
+
+install -d -m 0755 %buildroot/%_var/lib/menu
+ 
+for i in menu/desktop-directories/*.in ; do
+ %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %buildroot/%_datadir/desktop-directories/`basename $i .in` 2>&1 | grep -q "Odd number of elements in hash assignment" && echo "menu message po broken (see bug #25895), aborting " && exit 1
+done
+
+install -d -m 0755 %buildroot/%_datadir/mdk/desktop/free
+install -d -m 0755 %buildroot/%_datadir/mdk/desktop/one
+for i in desktop/*.in ; do
+ %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %buildroot/%_datadir/mdk/desktop/free/`basename $i .in` 
+done
+
+cp -f %buildroot/%_datadir/mdk/desktop/free/*.desktop %buildroot/%_datadir/mdk/desktop/one/
+
+
+#install theme for GDM/KDM
+install -d -m 0755 %buildroot/%_datadir/mdk/dm
+for i in dm/*.png dm/*.desktop dm/*.xml ; do 
+  install -m 0644 $i %buildroot/%_datadir/mdk/dm/
+done
+
+# install bookmarks
+install -d -m 0755 %buildroot%_datadir/mdk/bookmarks/konqueror
+for i in bookmarks/konqueror/*.xml ; do 
+  install -m 0644 $i %buildroot%_datadir/mdk/bookmarks/konqueror
+done
+
+install -d -m 0755 %buildroot%_datadir/mdk/bookmarks/mozilla
+for i in bookmarks/mozilla/*.html ; do 
+  install -m 0644 $i %buildroot%_datadir/mdk/bookmarks/mozilla
+done
+
+
+%post
+if [ -f %_sysconfdir/X11/window-managers.rpmsave ];then
+	%_sbindir/convertsession -f %_sysconfdir/X11/window-managers.rpmsave || :
+fi
+# Create a link to allow users to access to Mandrakelinux's backgrounds from KDE
+[ ! -d %_datadir/wallpapers ] && install -d -m 0755 %_datadir/wallpapers
+[ ! -e %_datadir/wallpapers/mandrake-linux ] && ln -s %_datadir/mdk/backgrounds/ %_datadir/wallpapers/mandrake-linux
+%update_menus
+
+%make_session
+
+%postun
+# Remove link created to allow users to access to Mandrakelinux's backgrounds from KDE
+[ -e %_datadir/wallpapers ] && rm -f %_datadir/wallpapers/mandrake-linux
+[ $(ls %_datadir/wallpapers/ | wc -l) -eq 0 ] && rm -fr %_datadir/wallpapers/
+%clean_menus
+
+%clean
+rm -fr %buildroot
+
+
+
+%files
+%defattr(-,root,root,-)
+%_bindir/*
+#
+%_sbindir/*
+
+%_sysconfdir/X11/xinit.d/*
+%_sysconfdir/profile.d/*
+%dir %_sysconfdir/menu.d
+%dir %_sysconfdir/xdg
+%dir %_sysconfdir/xdg/menus
+%dir %_sysconfdir/xdg/menus/applications-merged
+%dir %_sysconfdir/xdg/discovery/menus
+%dir %_sysconfdir/xdg/discovery/menus/applications-merged
+%config(noreplace) %_sysconfdir/xdg/menus/*.menu
+%config(noreplace) %_sysconfdir/xdg/discovery/menus/*.menu
+%dir %_var/lib/menu
+
+#
+%dir %_datadir/faces/
+%dir %_datadir/mdk/
+%dir %_datadir/mdk/faces/
+%_datadir/faces/*
+%_datadir/mdk/faces/*
+#
+%dir %_datadir/mdk/backgrounds/
+%_datadir/mdk/backgrounds/*.jpg
+
+%dir %_datadir/mdk/bookmarks
+%dir %_datadir/mdk/bookmarks/konqueror
+%_datadir/mdk/bookmarks/konqueror/*.xml
+%dir %_datadir/mdk/bookmarks/mozilla
+%_datadir/mdk/bookmarks/mozilla/*.html
+%_datadir/mdk/backgrounds/*.jpg
+#
+%dir %_datadir/apps/kdm/pics/
+%_datadir/apps/kdm/pics/*
+#
+%dir %_datadir/mdk/xfdrake/
+%_datadir/mdk/xfdrake/*.png
+#
+
+%_datadir/mdk/dm
+
+%_datadir/mdk/desktop
+#
+%_iconsdir/*.png
+%_liconsdir/*.png
+%_miconsdir/*.png
+
+%_datadir/desktop-directories/*.directory
+
+
