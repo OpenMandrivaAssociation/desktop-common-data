@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2007.1
-Release: 	%mkrel 12
+Release: 	%mkrel 13
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -103,6 +103,11 @@ install -m 0644 menu/mandriva-discovery.menu %buildroot/%_sysconfdir/xdg/discove
 install -m 0755 menu/xdg_menu %buildroot/%_bindir
 install -m 0755 menu/update-menus %buildroot/%_bindir/update-menus
 install -m 0755 menu/menustyle.sh menu/menustyle.csh %buildroot/%_sysconfdir/profile.d
+
+if [ "%_install_langs" != "all" ]; then
+ echo ERROR : rpm macro %%_install_langs is not set to \"all\", causing some translations to not be available on your build system and therefore preventing building this package. Add \"%%_install_langs all\" to /etc/rpm/macros and force a reinstall of mdk-menu-messages package to ensure all translations are installed on this system before rebuilding this package
+ return 1
+fi
 
 install -d -m 0755 %buildroot/%_datadir/desktop-directories
 mkdir tmp-l10n
