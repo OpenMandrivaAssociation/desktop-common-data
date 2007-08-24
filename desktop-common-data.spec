@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2008.0
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -14,6 +14,7 @@ BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
 BuildRequires:  mdk-menu-messages
 BuildRequires:  gettext
+BuildRequires:  libxml2-utils
 BuildArch:	noarch
 Requires:	mandriva-theme
 Obsoletes:	mandrake_desk
@@ -33,10 +34,12 @@ This package contains useful icons, menu structure and others goodies for the
 Mandriva Linux desktop.
 
 %prep
-
-
-
 %setup -q
+
+%build
+
+make
+
 
 %install
 rm -rf %buildroot
@@ -96,11 +99,10 @@ install -m 0644 menu/icons/large/*.png %buildroot/%_liconsdir
 install -m 0644 menu/icons/mini/*.png %buildroot/%_miconsdir
 
 # XDG menus
-install -d -m 0755 %buildroot/%_sysconfdir/xdg/menus/applications-merged  %buildroot/%_sysconfdir/xdg/discovery/menus/applications-merged
+install -d -m 0755 %buildroot/%_sysconfdir/xdg/menus/applications-merged 
 install -d -m 0755 %buildroot/%_sysconfdir/menu.d %buildroot/%_sysconfdir/profile.d
-install -m 0644 menu/applications-mdk.menu %buildroot/%_sysconfdir/xdg/menus/applications.menu
-install -m 0644 menu/applications-discovery.menu %buildroot/%_sysconfdir/xdg/discovery/menus/applications.menu
-install -m 0644 menu/mandriva-discovery.menu %buildroot/%_sysconfdir/xdg/discovery/menus/mandriva-discovery.menu
+install -m 0644 applications.menu %buildroot/%_sysconfdir/xdg/menus/applications.menu
+install -m 0644 kde-applications.menu %buildroot/%_sysconfdir/xdg/menus/kde-applications.menu
 install -m 0755 menu/xdg_menu %buildroot/%_bindir
 install -m 0755 menu/update-menus %buildroot/%_bindir/update-menus
 install -m 0755 menu/menustyle.sh menu/menustyle.csh %buildroot/%_sysconfdir/profile.d
@@ -183,10 +185,7 @@ rm -fr %buildroot
 %dir %_sysconfdir/xdg
 %dir %_sysconfdir/xdg/menus
 %dir %_sysconfdir/xdg/menus/applications-merged
-%dir %_sysconfdir/xdg/discovery/menus
-%dir %_sysconfdir/xdg/discovery/menus/applications-merged
 %config(noreplace) %_sysconfdir/xdg/menus/*.menu
-%config(noreplace) %_sysconfdir/xdg/discovery/menus/*.menu
 %dir %_var/lib/menu
 
 #
@@ -204,7 +203,6 @@ rm -fr %buildroot
 %_datadir/mdk/bookmarks/konqueror/*.xml
 %dir %_datadir/mdk/bookmarks/mozilla
 %_datadir/mdk/bookmarks/mozilla/*.html
-%_datadir/mdk/backgrounds/*.jpg
 #
 %dir %_datadir/apps/kdm/pics/
 %_datadir/apps/kdm/pics/*
