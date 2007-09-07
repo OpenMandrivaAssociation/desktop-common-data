@@ -155,7 +155,7 @@ done
 if [ -f %_sysconfdir/X11/window-managers.rpmsave ];then
 	%_sbindir/convertsession -f %_sysconfdir/X11/window-managers.rpmsave || :
 fi
-# Create a link to allow users to access to Mandrakelinux's backgrounds from KDE
+# Create a link to allow users to access to Mandriva Linux's backgrounds from KDE
 [ ! -d %_datadir/wallpapers ] && install -d -m 0755 %_datadir/wallpapers
 [ ! -e %_datadir/wallpapers/mandrake-linux ] && ln -s %_datadir/mdk/backgrounds/ %_datadir/wallpapers/mandrake-linux
 %update_menus
@@ -163,7 +163,7 @@ fi
 %make_session
 
 %postun
-# Remove link created to allow users to access to Mandrakelinux's backgrounds from KDE
+# Remove link created to allow users to access to Mandriva Linux's backgrounds from KDE
 [ -e %_datadir/wallpapers ] && rm -f %_datadir/wallpapers/mandrake-linux
 [ $(ls %_datadir/wallpapers/ | wc -l) -eq 0 ] && rm -fr %_datadir/wallpapers/
 %clean_menus
