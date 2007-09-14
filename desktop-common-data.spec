@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2008.0
-Release: 	%mkrel 8
+Release: 	%mkrel 9
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -124,13 +124,12 @@ for i in menu/desktop-directories/*.in ; do
  %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %buildroot/%_datadir/desktop-directories/`basename $i .in` 2>&1 | grep -q "Odd number of elements in hash assignment" && echo "menu message po broken (see bug #25895), aborting " && exit 1
 done
 
-install -d -m 0755 %buildroot/%_datadir/mdk/desktop/free
-install -d -m 0755 %buildroot/%_datadir/mdk/desktop/one
-for i in desktop/*.in ; do
- %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %buildroot/%_datadir/mdk/desktop/free/`basename $i .in` 
+for PRODUCT in free one powerpack ; do 
+  install -d -m 0755 %buildroot/%_datadir/mdk/desktop/$PRODUCT
+  for i in desktop/$PRODUCT/*.in ; do
+    %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %buildroot/%_datadir/mdk/desktop/$PRODUCT/`basename $i .in` 
+  done
 done
-
-cp -f %buildroot/%_datadir/mdk/desktop/free/*.desktop %buildroot/%_datadir/mdk/desktop/one/
 
 
 #install theme for GDM/KDM
@@ -148,6 +147,12 @@ done
 install -d -m 0755 %buildroot%_datadir/mdk/bookmarks/mozilla
 for i in bookmarks/mozilla/*.html ; do 
   install -m 0644 $i %buildroot%_datadir/mdk/bookmarks/mozilla
+done
+
+# install sound samples
+install -d -m 0755 %buildroot%_datadir/sounds
+for i in sounds/ia_ora*.wav ; do
+ install -m 0644 $i %buildroot%_datadir/sounds
 done
 
 
@@ -210,6 +215,8 @@ rm -fr %buildroot
 %dir %_datadir/mdk/xfdrake/
 %_datadir/mdk/xfdrake/*.png
 #
+
+%_datadir/sounds/*.wav
 
 %_datadir/mdk/dm
 
