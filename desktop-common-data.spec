@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2008.0
-Release: 	%mkrel 9
+Release: 	%mkrel 10
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
