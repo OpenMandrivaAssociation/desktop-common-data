@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2008.0
-Release: 	%mkrel 10
+Release: 	%mkrel 11
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -97,6 +97,7 @@ install -d -m 0755 %buildroot/%_miconsdir %buildroot/%_liconsdir
 install -m 0644 menu/icons/*.png %buildroot/%_iconsdir
 install -m 0644 menu/icons/large/*.png %buildroot/%_liconsdir
 install -m 0644 menu/icons/mini/*.png %buildroot/%_miconsdir
+cp -r menu/icons/hicolor  %buildroot/%_datadir/icons/
 
 # XDG menus
 install -d -m 0755 %buildroot/%_sysconfdir/xdg/menus/applications-merged 
@@ -166,12 +167,14 @@ fi
 %update_menus
 
 %make_session
+%update_icon_cache hicolor 2> /dev/null
 
 %postun
 # Remove link created to allow users to access to Mandriva Linux's backgrounds from KDE
 [ -e %_datadir/wallpapers ] && rm -f %_datadir/wallpapers/mandrake-linux
 [ $(ls %_datadir/wallpapers/ | wc -l) -eq 0 ] && rm -fr %_datadir/wallpapers/
 %clean_menus
+%clean_icon_cache hicolor 2> /dev/null
 
 %clean
 rm -fr %buildroot
@@ -225,6 +228,7 @@ rm -fr %buildroot
 %_iconsdir/*.png
 %_liconsdir/*.png
 %_miconsdir/*.png
+%_datadir/icons/hicolor/*/*/*.png
 
 %_datadir/desktop-directories/*.directory
 
