@@ -12,7 +12,7 @@ Source:		%{name}-%{version}.tar.bz2
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
-BuildRequires:  mdk-menu-messages
+BuildRequires:  menu-messages
 BuildRequires:  gettext
 BuildRequires:  libxml2-utils
 BuildArch:	noarch
@@ -24,7 +24,7 @@ Obsoletes:	menu
 Obsoletes:	menu-xdg
 Provides:	menu-xdg
 Provides:	menu = 2.1.24
-Requires:	mdk-menu-messages >= 10.2-7mdk
+Requires:	menu-messages >= 10.2-7mdk
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
 Requires(post):	hicolor-icon-theme
