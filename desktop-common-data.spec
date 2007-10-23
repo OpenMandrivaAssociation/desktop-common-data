@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2008.0
-Release: 	%mkrel 15
+Release: 	%mkrel 16
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -12,7 +12,11 @@ Source:		%{name}-%{version}.tar.bz2
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
+%if %mdkversion >= 200810
 BuildRequires:  menu-messages
+%else
+BuildRequires:	mdk-menu-messages
+%endif
 BuildRequires:  gettext
 BuildRequires:  libxml2-utils
 BuildArch:	noarch
@@ -24,7 +28,11 @@ Obsoletes:	menu
 Obsoletes:	menu-xdg
 Provides:	menu-xdg
 Provides:	menu = 2.1.24
-Requires:	menu-messages >= 10.2-7mdk
+%if %mdkversion >= 200810
+Requires:	menu-messages 
+%else
+Requires:	mdk-menu-messages 
+%endif
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
 Requires(post):	hicolor-icon-theme
