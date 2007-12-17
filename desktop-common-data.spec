@@ -10,7 +10,6 @@ Group:		System/Configuration/Other
 # no extra source or patch are allowed here.
 Source:		%{name}-%{version}.tar.bz2
 
-BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
 %if %mdkversion >= 200810
 BuildRequires:  menu-messages
