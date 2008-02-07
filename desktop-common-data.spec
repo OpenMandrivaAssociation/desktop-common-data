@@ -8,6 +8,9 @@ Group:		System/Configuration/Other
 
 # get the source from our svn repository (svn+ssh://svn.mandriva.com/svn/soft/desktop-common-data/)
 # no extra source or patch are allowed here.
+# to generate this tarball, from svn repository above, 
+# run "make dist VERSION=%{version} RELEASE=xxmdk"
+# where xx is version used for mkrel
 Source:		%{name}-%{version}.tar.bz2
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
