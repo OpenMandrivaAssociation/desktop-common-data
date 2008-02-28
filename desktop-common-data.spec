@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
-Version:	2008.0
-Release: 	%mkrel 20 
+Version:	2008.1
+Release: 	%mkrel 1 
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -23,7 +23,6 @@ BuildRequires:	mdk-menu-messages
 BuildRequires:  gettext
 BuildRequires:  libxml2-utils
 BuildArch:	noarch
-Requires:	mandriva-theme
 Obsoletes:	mandrake_desk
 Provides:	mandrake_desk
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
