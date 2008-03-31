@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2008.1
-Release: 	%mkrel 7
+Release: 	%mkrel 8
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -37,6 +37,7 @@ Requires:	mdk-menu-messages
 %endif
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
+Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:      kdelibs-common < 30000000:3.5.2
