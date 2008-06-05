@@ -122,6 +122,11 @@ install -m 0755 menu/update-menus %buildroot/%_bindir/update-menus
 install -m 0644 menu/menustyle.csh %buildroot/%_sysconfdir/profile.d/30menustyle.csh
 install -m 0644 menu/menustyle.sh  %buildroot/%_sysconfdir/profile.d/30menustyle.sh
 
+# update-menus rpm filetrigger
+install -d -m 0755 %buildroot%{_var}/lib/rpm/filetriggers
+install -m 0644 menu/update-menus.filter %buildroot%{_var}/lib/rpm/filetriggers
+install -m 0755 menu/update-menus.script %buildroot%{_var}/lib/rpm/filetriggers
+
 if [ "%_install_langs" != "all" ]; then
  echo ERROR : rpm macro %%_install_langs is not set to \"all\", causing some translations to not be available on your build system and therefore preventing building this package. Add \"%%_install_langs all\" to /etc/rpm/macros and force a reinstall of mdk-menu-messages package to ensure all translations are installed on this system before rebuilding this package
  return 1
@@ -209,6 +214,7 @@ rm -fr %buildroot
 %dir %_sysconfdir/xdg/menus/applications-merged
 %config(noreplace) %_sysconfdir/xdg/menus/*.menu
 %dir %_var/lib/menu
+%{_var}/lib/rpm/filetriggers/update-menus.*
 
 #
 %dir %_datadir/faces/
