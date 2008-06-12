@@ -186,14 +186,14 @@ fi
 %update_menus
 
 %make_session
-%update_icon_cache hicolor 2> /dev/null
+%update_icon_cache hicolor
 
 %postun
 # Remove link created to allow users to access to Mandriva Linux's backgrounds from KDE
 [ -e %_datadir/wallpapers ] && rm -f %_datadir/wallpapers/mandrake-linux
 [ $(ls %_datadir/wallpapers/ | wc -l) -eq 0 ] && rm -fr %_datadir/wallpapers/
 %clean_menus
-%clean_icon_cache hicolor 2> /dev/null
+%clean_icon_cache hicolor
 
 %clean
 rm -fr %buildroot
