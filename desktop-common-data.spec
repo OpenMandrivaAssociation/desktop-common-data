@@ -183,17 +183,23 @@ fi
 # Create a link to allow users to access to Mandriva Linux's backgrounds from KDE
 [ ! -d %_datadir/wallpapers ] && install -d -m 0755 %_datadir/wallpapers
 [ ! -e %_datadir/wallpapers/mandrake-linux ] && ln -s %_datadir/mdk/backgrounds/ %_datadir/wallpapers/mandrake-linux
+%if %mdkversion < 200900
 %update_menus
+%endif
 
 %make_session
+%if %mdkversion < 200900
 %update_icon_cache hicolor
+%endif
 
 %postun
 # Remove link created to allow users to access to Mandriva Linux's backgrounds from KDE
 [ -e %_datadir/wallpapers ] && rm -f %_datadir/wallpapers/mandrake-linux
 [ $(ls %_datadir/wallpapers/ | wc -l) -eq 0 ] && rm -fr %_datadir/wallpapers/
+%if %mdkversion < 200900
 %clean_menus
 %clean_icon_cache hicolor
+%endif
 
 %clean
 rm -fr %buildroot
