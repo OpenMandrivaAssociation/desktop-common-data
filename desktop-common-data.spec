@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2009.0
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -126,6 +126,8 @@ install -m 0644 menu/menustyle.sh  %buildroot/%_sysconfdir/profile.d/30menustyle
 install -d -m 0755 %buildroot%{_var}/lib/rpm/filetriggers
 install -m 0644 menu/update-menus.filter %buildroot%{_var}/lib/rpm/filetriggers
 install -m 0755 menu/update-menus.script %buildroot%{_var}/lib/rpm/filetriggers
+install -m 0644 menu/make-session.filter %buildroot%{_var}/lib/rpm/filetriggers
+install -m 0755 menu/make-session.script %buildroot%{_var}/lib/rpm/filetriggers
 
 if [ "%_install_langs" != "all" ]; then
  echo ERROR : rpm macro %%_install_langs is not set to \"all\", causing some translations to not be available on your build system and therefore preventing building this package. Add \"%%_install_langs all\" to /etc/rpm/macros and force a reinstall of mdk-menu-messages package to ensure all translations are installed on this system before rebuilding this package
@@ -221,6 +223,7 @@ rm -fr %buildroot
 %config(noreplace) %_sysconfdir/xdg/menus/*.menu
 %dir %_var/lib/menu
 %{_var}/lib/rpm/filetriggers/update-menus.*
+%{_var}/lib/rpm/filetriggers/make-session.*
 
 #
 %dir %_datadir/faces/
