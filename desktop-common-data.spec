@@ -198,9 +198,8 @@ fi
 %update_icon_cache hicolor
 %endif
 
-%postun
-# Remove link created to allow users to access to Mandriva Linux's backgrounds from KDE
 %if %mdkversion < 200900
+%postun
 %clean_menus
 %clean_icon_cache hicolor
 %endif
