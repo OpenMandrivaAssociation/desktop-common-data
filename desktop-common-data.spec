@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2009.0
-Release: 	%mkrel 6
+Release: 	%mkrel 7
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -177,27 +177,29 @@ for i in sounds/ia_ora*.wav ; do
  install -m 0644 $i %buildroot%_datadir/sounds
 done
 
+#install sound theme Ia Ora
+install -d -m 0755 %buildroot%_datadir/sounds/ia_ora/stereo
+install -m 0644 sounds/index.theme %buildroot%_datadir/sounds/ia_ora
+ln -s ../../ia_ora-startup.wav %buildroot%_datadir/sounds/ia_ora/stereo/desktop-login.wav
+ln -s ../../ia_ora-shutdown.wav %buildroot%_datadir/sounds/ia_ora/stereo/desktop-logout.wav
+ln -s ../../ia_ora-error.wav %buildroot%_datadir/sounds/ia_ora/stereo/dialog-error.wav
+ln -s ../../ia_ora-notification.wav %buildroot%_datadir/sounds/ia_ora/stereo/dialog-warning.wav
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/dialog-error.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/dialog-warning.disabled
+
 
 %post
 if [ -f %_sysconfdir/X11/window-managers.rpmsave ];then
 	%_sbindir/convertsession -f %_sysconfdir/X11/window-managers.rpmsave || :
 fi
-# Create a link to allow users to access to Mandriva Linux's backgrounds from KDE
-[ ! -d %_datadir/wallpapers ] && install -d -m 0755 %_datadir/wallpapers
-[ ! -e %_datadir/wallpapers/mandrake-linux ] && ln -s %_datadir/mdk/backgrounds/ %_datadir/wallpapers/mandrake-linux
-%if %mdkversion < 200900
-%update_menus
-%endif
-
 %make_session
 %if %mdkversion < 200900
+%update_menus
 %update_icon_cache hicolor
 %endif
 
 %postun
 # Remove link created to allow users to access to Mandriva Linux's backgrounds from KDE
-[ -e %_datadir/wallpapers ] && rm -f %_datadir/wallpapers/mandrake-linux
-[ $(ls %_datadir/wallpapers/ | wc -l) -eq 0 ] && rm -fr %_datadir/wallpapers/
 %if %mdkversion < 200900
 %clean_menus
 %clean_icon_cache hicolor
@@ -249,6 +251,7 @@ rm -fr %buildroot
 #
 
 %_datadir/sounds/*.wav
+%_datadir/sounds/ia_ora
 
 %_datadir/mdk/dm
 
