@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2009.0
-Release: 	%mkrel 9
+Release: 	%mkrel 10
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -197,13 +197,17 @@ if [ -f %_sysconfdir/X11/window-managers.rpmsave ];then
 	%_sbindir/convertsession -f %_sysconfdir/X11/window-managers.rpmsave || :
 fi
 %make_session
+# (cg) See sound-theme-freedesktop for explanation about touch.
+touch --no-create %_datadir/sounds %_datadir/sounds/ia_ora
 %if %mdkversion < 200900
 %update_menus
 %update_icon_cache hicolor
 %endif
 
-%if %mdkversion < 200900
 %postun
+# (cg) See sound-theme-freedesktop for explanation about touch.
+touch --no-create %_datadir/sounds %_datadir/sounds/ia_ora
+%if %mdkversion < 200900
 %clean_menus
 %clean_icon_cache hicolor
 %endif
