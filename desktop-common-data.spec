@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2010.0
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -262,7 +262,11 @@ rm -fr %buildroot
 
 %_datadir/mdk/dm
 
-%_datadir/mdk/desktop
+%dir %_datadir/mdk/desktop
+%dir %_datadir/mdk/desktop/free
+%dir %_datadir/mdk/desktop/one
+%dir %_datadir/mdk/desktop/powerpack
+%attr(0755,root,root) %_datadir/mdk/desktop/*/*
 #
 %_iconsdir/*.png
 %_liconsdir/*.png
