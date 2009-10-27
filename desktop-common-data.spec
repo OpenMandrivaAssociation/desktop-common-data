@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2010.0
-Release: 	%mkrel 3
+Release: 	%mkrel 4
 License:	GPL
 URL:		http://www.mandrivalinux.com/
 Group:		System/Configuration/Other
@@ -184,9 +184,15 @@ ln -s ../../ia_ora-startup.wav %buildroot%_datadir/sounds/ia_ora/stereo/desktop-
 ln -s ../../ia_ora-shutdown.wav %buildroot%_datadir/sounds/ia_ora/stereo/desktop-logout.wav
 ln -s ../../ia_ora-error.wav %buildroot%_datadir/sounds/ia_ora/stereo/dialog-error.wav
 ln -s ../../ia_ora-notification.wav %buildroot%_datadir/sounds/ia_ora/stereo/dialog-warning.wav
-touch  %buildroot%_datadir/sounds/ia_ora/stereo/dialog-error.disabled
-touch  %buildroot%_datadir/sounds/ia_ora/stereo/dialog-warning.disabled
-touch  %buildroot%_datadir/sounds/ia_ora/stereo/dialog-information.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/dialog.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/power.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/battery.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/suspend.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/screen-capture.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/service.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/system.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/desktop.disabled
+touch  %buildroot%_datadir/sounds/ia_ora/stereo/device.disabled
 touch  %buildroot%_datadir/sounds/ia_ora/stereo/bell.disabled
 touch  %buildroot%_datadir/sounds/ia_ora/stereo/message-new-email.disabled
 touch  %buildroot%_datadir/sounds/ia_ora/stereo/trash-empty.disabled
