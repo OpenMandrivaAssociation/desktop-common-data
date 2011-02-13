@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2010.1
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -50,9 +50,7 @@ Mandriva Linux desktop.
 %setup -q
 
 %build
-
 make
-
 
 %install
 rm -rf %buildroot
@@ -211,12 +209,16 @@ touch --no-create %_datadir/sounds %_datadir/sounds/ia_ora
 %clean_icon_cache hicolor
 %endif
 
-%triggerin -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop, %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
+%triggerin -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
+
+%triggerin -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
 %{_sbindir}/fndSession
 
-%triggerpostun -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop, %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
+%triggerpostun -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
+
+%triggerin -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
 %{_sbindir}/fndSession
 
 %clean
