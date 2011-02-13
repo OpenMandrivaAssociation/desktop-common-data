@@ -218,7 +218,7 @@ touch --no-create %_datadir/sounds %_datadir/sounds/ia_ora
 %triggerpostun -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
 
-%triggerin -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
+%triggerpostun -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
 %{_sbindir}/fndSession
 
 %clean
