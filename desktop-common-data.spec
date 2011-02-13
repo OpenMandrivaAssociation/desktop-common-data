@@ -1,9 +1,9 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
-Version:	2011.0
-Release: 	%mkrel 1
+Version:	2010.1
+Release: 	%mkrel 4
 License:	GPL
-URL:		http://www.mandrivalinux.com/
+URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
 
 # get the source from our svn repository (svn+ssh://svn.mandriva.com/svn/soft/desktop-common-data/)
