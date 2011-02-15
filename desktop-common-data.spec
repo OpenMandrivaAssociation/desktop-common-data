@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
-Version:	2010.1
-Release: 	%mkrel 6
+Version:	2011.0
+Release: 	%mkrel 1
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -77,10 +77,6 @@ install -m 0755 bin/xvt %buildroot/%_bindir/
 # /usr/sbin/
 install -d -m 0755 %buildroot/%_sbindir/
 for i in sbin/* ; do install -m 0755 $i %buildroot/%_sbindir/ ; done
-
-# /etc/X11/xinit.d/
-install -d -m 0755 %buildroot/%_sysconfdir/X11/xinit.d/
-for i in xinit.d/* ; do install -m 0755 $i %buildroot/%_sysconfdir/X11/xinit.d/ ; done
 
 
 ## Install faces
@@ -230,7 +226,6 @@ rm -fr %buildroot
 #
 %_sbindir/*
 
-%_sysconfdir/X11/xinit.d/*
 %_sysconfdir/profile.d/*
 %dir %_sysconfdir/menu.d
 %dir %_sysconfdir/xdg
