@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2011.0
-Release: 	%mkrel 2
+Release: 	%mkrel 3
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -15,11 +15,7 @@ Source:		%{name}-%{version}.tar.bz2
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
-%if %mdkversion >= 200810
 BuildRequires:  menu-messages
-%else
-BuildRequires:	mdk-menu-messages
-%endif
 BuildRequires:  gettext
 BuildRequires:  libxml2-utils
 BuildArch:	noarch
@@ -30,11 +26,7 @@ Obsoletes:	menu
 Obsoletes:	menu-xdg
 Provides:	menu-xdg
 Provides:	menu = 2.1.24
-%if %mdkversion >= 200810
-Requires:	menu-messages 
-%else
 Requires:	mdk-menu-messages 
-%endif
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
 Requires:	run-parts
@@ -192,18 +184,10 @@ fi
 %make_session
 # (cg) See sound-theme-freedesktop for explanation about touch.
 touch --no-create %_datadir/sounds %_datadir/sounds/ia_ora
-%if %mdkversion < 200900
-%update_menus
-%update_icon_cache hicolor
-%endif
 
 %postun
 # (cg) See sound-theme-freedesktop for explanation about touch.
 touch --no-create %_datadir/sounds %_datadir/sounds/ia_ora
-%if %mdkversion < 200900
-%clean_menus
-%clean_icon_cache hicolor
-%endif
 
 %triggerin -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
