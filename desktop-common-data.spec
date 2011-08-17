@@ -1,7 +1,7 @@
 Summary:	Desktop common files 
 Name:		desktop-common-data
 Version:	2011.0
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -12,6 +12,7 @@ Group:		System/Configuration/Other
 # run "make dist VERSION=%{version} RELEASE=xxmdk"
 # where xx is version used for mkrel
 Source:		%{name}-%{version}.tar.bz2
+Patch0:		desktop-common-data-2011.0-menu.patch
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
@@ -40,6 +41,7 @@ Mandriva Linux desktop.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 make
