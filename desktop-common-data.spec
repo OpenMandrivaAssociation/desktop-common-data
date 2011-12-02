@@ -18,6 +18,7 @@ BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
 BuildRequires:  menu-messages
 BuildRequires:  gettext
+BuildRequires:	glib2-devel
 BuildRequires:  libxml2-utils
 BuildArch:	noarch
 Obsoletes:	mandrake_desk
