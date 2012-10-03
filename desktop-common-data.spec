@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
-Version:	2011.0
-Release:	%mkrel 7
+Version:	2012.0
+Release:	1
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -11,7 +11,7 @@ Group:		System/Configuration/Other
 # to generate this tarball, from svn repository above, 
 # run "make dist VERSION=%{version} RELEASE=xxmdk"
 # where xx is version used for mkrel
-Source:		%{name}-%{version}.tar.bz2
+Source0:	%{name}-%{version}.tar.xz
 Patch0:		desktop-common-data-2011.0-menu.patch
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
@@ -117,7 +117,7 @@ if [ "%_install_langs" != "all" ]; then
 fi
 
 install -d -m 0755 %{buildroot}/%{_datadir}/desktop-directories
-mkdir tmp-l10n
+mkdir -p tmp-l10n
 for i in %{_datadir}/locale/*/LC_MESSAGES/menu-messages.mo ; do
  msgunfmt $i > tmp-l10n/`echo $i | sed -e 's|%{_datadir}/locale/||' -e 's|/LC.*||'`.po
 done
@@ -155,7 +155,7 @@ done
 
 # install sound samples
 install -d -m 0755 %{buildroot}%{_datadir}/sounds
-for i in sounds/ia_ora*.wav ; do
+for i in sounds/ia_ora*.wav sounds/moondrake-*ogg; do
  install -m 0644 $i %{buildroot}%{_datadir}/sounds
 done
 %if %mdvver >= 201200
@@ -249,6 +249,7 @@ rm -fr %{buildroot}
 %{_datadir}/mdk/xfdrake/*.png
 #
 
+%{_datadir}/sounds/*.ogg
 %{_datadir}/sounds/*.wav
 %{_datadir}/sounds/ia_ora
 
