@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2012.0
-Release:	1
+Release:	2
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -37,7 +37,7 @@ Conflicts:	kdelibs-common < 30000000:3.5.2
 
 %description
 This package contains useful icons, menu structure and others goodies for the
-Mandriva Linux desktop.
+%{distribution} desktop.
 
 %prep
 %setup -q
