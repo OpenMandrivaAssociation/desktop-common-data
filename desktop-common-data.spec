@@ -14,7 +14,6 @@ Group:		System/Configuration/Other
 Source0:	%{name}-%{version}.tar.xz
 Patch0:		desktop-common-data-2011.0-menu.patch
 
-BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	intltool
 BuildRequires:	menu-messages
 BuildRequires:	gettext
@@ -47,8 +46,6 @@ This package contains useful icons, menu structure and others goodies for the
 make
 
 %install
-rm -rf %{buildroot}
-
 ## Install backgrounds
 # User & root's backgrounds
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/backgrounds/
@@ -209,11 +206,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %triggerpostun -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
 %{_sbindir}/fndSession
 
-%clean
-rm -fr %{buildroot}
-
 %files
-%defattr(-,root,root,-)
 %{_bindir}/*
 #
 %{_sbindir}/*
