@@ -37,14 +37,3 @@ diff -urN desktop-common-data-2011.0/menu/applications.menu.in desktop-common-da
      </Layout>
      <Include>
        <And>
---- desktop-common-data-2011.0/menu/xdg_menu.orig	2011-12-01 18:09:49.560078099 -0200
-+++ desktop-common-data-2011.0/menu/xdg_menu	2011-12-01 18:10:11.229079273 -0200
-@@ -2234,7 +2234,7 @@ my $output;
- 
- if ($format eq 'WindowMaker') {
- 
--	$output = output_wmaker_menu($menu) 
-+	$output = output_wmaker_menu($menu, 1) 
- }
- elsif ($format eq 'fvwm2') {
- 
