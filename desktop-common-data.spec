@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2012.0
-Release:	4
+Release:	5
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -26,7 +26,7 @@ Obsoletes:	menu < %{version}
 Obsoletes:	menu-xdg  < %{version}
 Provides:	menu-xdg
 Provides:	menu = 2.1.24
-Requires:	mdk-menu-messages
+Requires:	menu-messages
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
 Requires:	run-parts
