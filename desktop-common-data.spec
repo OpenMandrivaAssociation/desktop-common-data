@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2012.0
-Release:	5
+Release:	6
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -156,9 +156,9 @@ for i in sounds/ia_ora*.wav sounds/moondrake-*ogg; do
  install -m 0644 $i %{buildroot}%{_datadir}/sounds
 done
 %if %mdvver >= 201200
-ln -s %{_datadir}/sounds/ia_ora-startup.wav %{buildroot}%{_datadir}/sounds/system-bootup.wav
-ln -s %{_datadir}/sounds/ia_ora-shutdown.wav %{buildroot}%{_datadir}/sounds/system-shutdown.wav
-ln -s %{_datadir}/sounds/ia_ora-shutdown.wav %{buildroot}%{_datadir}/sounds/system-shutdown-reboot.wav
+ln -s moondrake-startup.wav %{buildroot}%{_datadir}/sounds/system-bootup.wav
+ln -s moondrake-shutdown.wav %{buildroot}%{_datadir}/sounds/system-shutdown.wav
+ln -s moondrake-shutdown.wav %{buildroot}%{_datadir}/sounds/system-shutdown-reboot.wav
 %endif
 
 #install sound theme Ia Ora
