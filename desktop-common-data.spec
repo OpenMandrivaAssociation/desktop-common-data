@@ -57,6 +57,9 @@ install -m 0644 backgrounds/nature.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/xfdrake/
 install -m 0644 backgrounds/xfdrake-test-card.png %{buildroot}/%{_datadir}/mdk/xfdrake/xfdrake-test-card.png
 
+# for easy access for users looking for wallpapers at expected location
+install -d %{buildroot}%{_datadir}/wallpapers
+ln -sr %{buildroot}%{_datadir}/mdk/backgrounds %{buildroot}%{_datadir}/wallpapers/mdk
 
 ## Install scripts
 # /usr/bin/
