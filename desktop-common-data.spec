@@ -49,6 +49,7 @@ make
 ## Install backgrounds
 # User & root's backgrounds
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/backgrounds/
+install -m644 backgrounds/default.png %{buildroot}/%{_datadir}/mdk/backgrounds/
 install -m 0644 backgrounds/flower.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
 install -m 0644 backgrounds/nature.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
 
@@ -207,6 +208,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 #
 %dir %{_datadir}/mdk/backgrounds/
 %{_datadir}/mdk/backgrounds/*.jpg
+%{_datadir}/mdk/backgrounds/default.png
 
 %dir %{_datadir}/mdk/bookmarks
 %dir %{_datadir}/mdk/bookmarks/konqueror
