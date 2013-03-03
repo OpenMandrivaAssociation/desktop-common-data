@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2013.0
-Release:	1
+Release:	2
 License:	GPL
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -55,7 +55,6 @@ install -m 0644 backgrounds/nature.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
 # XFdrake test card
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/xfdrake/
 install -m 0644 backgrounds/xfdrake-test-card.png %{buildroot}/%{_datadir}/mdk/xfdrake/xfdrake-test-card.png
-
 
 
 ## Install scripts
@@ -125,14 +124,6 @@ for i in menu/desktop-directories/*.in ; do
  %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %{buildroot}/%{_datadir}/desktop-directories/`basename $i .in` 2>&1 | grep -q "Odd number of elements in hash assignment" && echo "menu message po broken (see bug #25895), aborting " && exit 1
 done
 
-for PRODUCT in free one powerpack ; do
-  install -d -m 0755 %{buildroot}/%{_datadir}/mdk/desktop/$PRODUCT
-  for i in desktop/$PRODUCT/*.in ; do
-    %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %{buildroot}/%{_datadir}/mdk/desktop/$PRODUCT/`basename $i .in` 
-  done
-done
-
-
 #install theme for GDM/KDM
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/dm
 for i in dm/*.png dm/*.desktop dm/*.xml ; do 
@@ -152,18 +143,10 @@ done
 
 # install sound samples
 install -d -m 0755 %{buildroot}%{_datadir}/sounds
-for i in sounds/ia_ora*.wav; do
- install -m 0644 $i %{buildroot}%{_datadir}/sounds
-done
 cp -r sounds/moondrake %{buildroot}%{_datadir}/sounds
 
 #install sound theme Ia Ora
-install -d -m 0755 %{buildroot}%{_datadir}/sounds/ia_ora/stereo
-install -m 0644 sounds/index.theme %{buildroot}%{_datadir}/sounds/ia_ora
-ln -s ../../ia_ora-startup.wav %{buildroot}%{_datadir}/sounds/ia_ora/stereo/desktop-login.wav
-ln -s ../../ia_ora-shutdown.wav %{buildroot}%{_datadir}/sounds/ia_ora/stereo/desktop-logout.wav
-ln -s ../../ia_ora-error.wav %{buildroot}%{_datadir}/sounds/ia_ora/stereo/dialog-error.wav
-ln -s ../../ia_ora-notification.wav %{buildroot}%{_datadir}/sounds/ia_ora/stereo/dialog-warning.wav
+cp -r sounds/ia_ora %{buildroot}%{_datadir}/sounds
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/dialog.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/power.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/battery.disabled
@@ -238,16 +221,10 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_datadir}/mdk/xfdrake/*.png
 #
 
-%{_datadir}/sounds/*.wav
 %{_datadir}/sounds/ia_ora
 %{_datadir}/sounds/moondrake
 
 %{_datadir}/mdk/dm
-%dir %{_datadir}/mdk/desktop
-%dir %{_datadir}/mdk/desktop/free
-%dir %{_datadir}/mdk/desktop/one
-%dir %{_datadir}/mdk/desktop/powerpack
-%attr(0755,root,root) %{_datadir}/mdk/desktop/*/*
 #
 %{_iconsdir}/*.png
 %{_liconsdir}/*.png
