@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2013.0
-Release:	4
+Release:	5
 License:	GPLv2+
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
