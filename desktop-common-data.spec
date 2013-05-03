@@ -44,6 +44,8 @@ Summary:	Original classic cute penguins by Helene Durosini, rescaled by Anette N
 Url:		http://www.anettenorli.com
 Group:		System/Configuration/Other
 Provides:	faces-icons
+Requires(post):	update-alternatives
+Requires(postun):update-alternatives
 
 %description -n	faces-moondrake
 Penguin faces from previous Mandriva Linux releases, originally drawn by
@@ -53,6 +55,8 @@ Helene Durosini, rescaled and enhanced by Anette Norli.
 Summary:	Original classic cute penguins 
 Group:		System/Configuration/Other
 Provides:	faces-icons
+Requires(post):	update-alternatives
+Requires(postun):update-alternatives
 
 %description -n	faces-default
 Default set of icons that were used in Mandriva Linux 2011.
