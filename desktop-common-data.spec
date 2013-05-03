@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2013.0
-Release:	5
+Release:	7
 License:	GPLv2+
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -33,10 +33,29 @@ Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
+Requires:	faces-icons
 
 %description
 This package contains useful icons, menu structure and others goodies for the
 %{distribution} desktop.
+
+%package -n	faces-moondrake
+Summary:	Original classic cute penguins by Helene Durosini, rescaled by Anette Norli
+Url:		http://www.anettenorli.com
+Group:		System/Configuration/Other
+Provides:	faces-icons
+
+%description -n	faces-moondrake
+Penguin faces from previous Mandriva Linux releases, originally drawn by
+Helene Durosini, rescaled and enhanced by Anette Norli.
+
+%package -n	faces-default
+Summary:	Original classic cute penguins 
+Group:		System/Configuration/Other
+Provides:	faces-icons
+
+%description -n	faces-default
+Default set of icons that were used in Mandriva Linux 2011.
 
 %prep
 %setup -q
@@ -76,15 +95,13 @@ for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
 ## Install faces
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
 install -d -m 0755 %{buildroot}/%{_datadir}/faces/
-for i in faces/*.png ; do install -m 0644 $i %{buildroot}/%{_datadir}/mdk/faces/ ; done
+cp -a faces/*/ %{buildroot}/%{_datadir}/mdk/faces/
 
 # David - 9.0-5mdk - For KDE
-install -m 0644 faces/default.png %{buildroot}/%{_datadir}/faces/default.png
+ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/default.png
 
 # David - 9.0-5mdk - For GDM
-install -m 0644 faces/default.png %{buildroot}/%{_datadir}/faces/user-default-mdk.png
-
-
+ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/user-default-mdk.png
 
 ## KDE
 # kdm
@@ -189,6 +206,22 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %triggerpostun -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
 %{_sbindir}/fndSession
 
+%post -n faces-moondrake
+update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png 10
+
+%postun -n faces-moondrake
+if [ "$1" = "0" ]; then
+  update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png
+fi
+
+%post -n faces-default
+update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/02-default/default.png 1
+
+%postun -n faces-default
+if [ "$1" = "0" ]; then
+  update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/02-default/default.png
+fi
+
 %files
 %{_bindir}/*
 #
@@ -207,7 +240,6 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
-%{_datadir}/mdk/faces/*
 #
 %dir %{_datadir}/mdk/backgrounds/
 %{_datadir}/mdk/backgrounds/*.jpg
@@ -240,3 +272,10 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/desktop-directories/*.directory
 
+%files -n faces-moondrake
+%dir %{_datadir}/mdk/faces/00-moondrake
+%{_datadir}/mdk/faces/00-moondrake/*
+
+%files -n faces-default
+%dir %{_datadir}/mdk/faces/02-default
+%{_datadir}/mdk/faces/02-default/*
