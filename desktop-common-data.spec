@@ -52,7 +52,7 @@ Penguin faces from previous Mandriva Linux releases, originally drawn by
 Helene Durosini, rescaled and enhanced by Anette Norli.
 
 %package -n	faces-default
-Summary:	Default set of face icons from Mandriva Linux 2011.
+Summary:	Default set of face icons from Mandriva Linux 2011
 Group:		System/Configuration/Other
 Provides:	faces-icons
 Requires(post):	update-alternatives
