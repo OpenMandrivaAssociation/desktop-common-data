@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2013.0
-Release:	7
+Release:	8
 License:	GPLv2+
 URL:		http://www.mandriva.com/
 Group:		System/Configuration/Other
@@ -60,6 +60,16 @@ Requires(postun):update-alternatives
 
 %description -n	faces-default
 Default set of face icons that were used in Mandriva Linux 2011.
+
+%package -n	sound-theme-moondrake
+Summary: 	Moondrake sound theme
+Url:		http://www.christianaugustin.com
+Group:		System/Configuration/Other
+Provides:	fdo-sound-theme
+Conflicts:	desktop-common-data < 2013.0-8
+
+%description -n	sound-theme-moondrake
+A new sound theme created for Moondrake GNU/Linux 2013 by Christian Augustin.
 
 %prep
 %setup -q
@@ -266,7 +276,6 @@ fi
 #
 
 %{_datadir}/sounds/ia_ora
-%{_datadir}/sounds/moondrake
 
 %{_datadir}/mdk/dm
 #
@@ -283,3 +292,6 @@ fi
 %files -n faces-default
 %dir %{_datadir}/mdk/faces/02-default
 %{_datadir}/mdk/faces/02-default/*
+
+%files -n sound-theme-moondrake
+%{_datadir}/sounds/moondrake
