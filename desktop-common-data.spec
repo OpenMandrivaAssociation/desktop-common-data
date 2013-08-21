@@ -1,9 +1,9 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2013.0
-Release:	5
+Release:	6
 License:	GPLv2+
-URL:		http://www.mandriva.com/
+URL:		%{disturl}
 Group:		System/Configuration/Other
 
 # get the source from our svn repository (svn+ssh://svn.mandriva.com/svn/soft/desktop-common-data/)
@@ -11,6 +11,7 @@ Group:		System/Configuration/Other
 # to generate this tarball, from svn repository above, 
 # run "make dist VERSION=%{version} RELEASE=xxmdk"
 # where xx is version used for mkrel
+# LATEST SOURCE https://abf.rosalinux.ru/omv_software/desktop-common-data
 Source0:	%{name}-%{version}.tar.xz
 Patch0:		desktop-common-data-2011.0-menu.patch
 
@@ -19,13 +20,6 @@ BuildRequires:	menu-messages
 BuildRequires:	gettext
 BuildRequires:	libxml2-utils
 BuildArch:	noarch
-Obsoletes:	mandrake_desk < %{version}
-Provides:	mandrake_desk
-Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
-Obsoletes:	menu < %{version}
-Obsoletes:	menu-xdg  < %{version}
-Provides:	menu-xdg
-Provides:	menu = 2.1.24
 Requires:	menu-messages
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
@@ -33,6 +27,10 @@ Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
+Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
+%rename		mandrake_desk
+%rename		menu
+%rename		menu-xdg
 
 %description
 This package contains useful icons, menu structure and others goodies for the
@@ -49,9 +47,6 @@ make
 ## Install backgrounds
 # User & root's backgrounds
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/backgrounds/
-install -m644 backgrounds/default.png %{buildroot}/%{_datadir}/mdk/backgrounds/
-install -m 0644 backgrounds/flower.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
-install -m 0644 backgrounds/nature.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
 
 # XFdrake test card
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/xfdrake/
@@ -65,6 +60,7 @@ ln -sr %{buildroot}%{_datadir}/mdk/backgrounds %{buildroot}%{_datadir}/wallpaper
 # /usr/bin/
 install -d -m 0755 %{buildroot}/%{_bindir}/
 for i in bin/*.sh ; do install -m 0755 $i %{buildroot}/%{_bindir}/ ; done
+install -m 0755 bin/editor %{buildroot}/%{_bindir}/
 install -m 0755 bin/www-browser %{buildroot}/%{_bindir}/
 install -m 0755 bin/xvt %{buildroot}/%{_bindir}/
 
