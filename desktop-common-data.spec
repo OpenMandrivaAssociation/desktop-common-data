@@ -68,7 +68,6 @@ install -m 0755 bin/xvt %{buildroot}/%{_bindir}/
 install -d -m 0755 %{buildroot}/%{_sbindir}/
 for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
 
-
 ## Install faces
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
 install -d -m 0755 %{buildroot}/%{_datadir}/faces/
@@ -80,14 +79,10 @@ install -m 0644 faces/default.png %{buildroot}/%{_datadir}/faces/default.png
 # David - 9.0-5mdk - For GDM
 install -m 0644 faces/default.png %{buildroot}/%{_datadir}/faces/user-default-mdk.png
 
-
-
 ## KDE
 # kdm
 install -d -m 0755 %{buildroot}/%{_datadir}/apps/kdm/pics/
 install -m 0644 kde/kdm-mdk-logo.png %{buildroot}/%{_datadir}/apps/kdm/pics/
-
-
 
 ## icons
 install -d -m 0755 %{buildroot}/%{_miconsdir} %{buildroot}/%{_liconsdir}
@@ -119,7 +114,7 @@ for i in %{_datadir}/locale/*/LC_MESSAGES/menu-messages.mo ; do
 done
 
 install -d -m 0755 %{buildroot}/%{_var}/lib/menu
- 
+
 for i in menu/desktop-directories/*.in ; do
  %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %{buildroot}/%{_datadir}/desktop-directories/`basename $i .in` 2>&1 | grep -q "Odd number of elements in hash assignment" && echo "menu message po broken (see bug #25895), aborting " && exit 1
 done
@@ -160,7 +155,6 @@ touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/bell.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
 
-
 %post
 if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
 	%{_sbindir}/convertsession -f %{_sysconfdir}/X11/window-managers.rpmsave || :
@@ -187,9 +181,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 
 %files
 %{_bindir}/*
-#
 %{_sbindir}/*
-
 %{_sysconfdir}/profile.d/*
 %dir %{_sysconfdir}/menu.d
 %dir %{_sysconfdir}/xdg
@@ -197,39 +189,27 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %dir %{_sysconfdir}/xdg/menus/applications-merged
 %config(noreplace) %{_sysconfdir}/xdg/menus/*.menu
 %dir %{_var}/lib/menu
-
-#
 %dir %{_datadir}/faces/
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
 %{_datadir}/mdk/faces/*
-#
 %dir %{_datadir}/mdk/backgrounds/
 %{_datadir}/mdk/backgrounds/*.jpg
 %{_datadir}/mdk/backgrounds/default.png
-
 %{_datadir}/wallpapers/mdk
-
-
 %dir %{_datadir}/mdk/bookmarks
 %dir %{_datadir}/mdk/bookmarks/konqueror
 %{_datadir}/mdk/bookmarks/konqueror/*.xml
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
-#
 %dir %{_datadir}/apps/kdm/pics/
 %{_datadir}/apps/kdm/pics/*
-#
 %dir %{_datadir}/mdk/xfdrake/
 %{_datadir}/mdk/xfdrake/*.png
-#
-
 %{_datadir}/sounds/ia_ora
 %{_datadir}/sounds/moondrake
-
 %{_datadir}/mdk/dm
-#
 %{_iconsdir}/*.png
 %{_liconsdir}/*.png
 %{_miconsdir}/*.png
