@@ -194,9 +194,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
 %{_datadir}/mdk/faces/*
-%dir %{_datadir}/mdk/backgrounds/
-%{_datadir}/mdk/backgrounds/*.jpg
-%{_datadir}/mdk/backgrounds/default.png
+%dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
 %dir %{_datadir}/mdk/bookmarks
 %dir %{_datadir}/mdk/bookmarks/konqueror
