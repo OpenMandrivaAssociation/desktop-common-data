@@ -13,6 +13,16 @@ diff -urN desktop-common-data-2011.0/menu/applications.menu.in desktop-common-da
      <Include>
        <And>
          <Or>
+@@ -145,6 +145,9 @@
+         </Or>
+         <Or>
+           <Category>X-MandrivaLinux-Office</Category>
++          <Category>X-MandrivaLinux-Office-Wordprocessors</Category>
++          <Category>X-MandrivaLinux-Office-Spreadsheets</Category>
++          <Category>X-MandrivaLinux-Office-Presentations</Category>
+           <Category>Office</Category>
+         </Or>
+         <Not>
 @@ -229,6 +234,11 @@
    <Menu>
      <Name>SoundVideo</Name>
