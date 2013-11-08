@@ -13,7 +13,6 @@ Group:		System/Configuration/Other
 # where xx is version used for mkrel
 # LATEST SOURCE https://abf.rosalinux.ru/omv_software/desktop-common-data
 Source0:	%{name}-%{version}.tar.xz
-Patch0:		desktop-common-data-2011.0-menu.patch
 
 BuildRequires:	intltool
 BuildRequires:	menu-messages
@@ -38,7 +37,6 @@ This package contains useful icons, menu structure and others goodies for the
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 make
