@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	%distro_release
-Release:	1
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
