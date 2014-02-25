@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	%distro_release
-Release:	1
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -88,6 +88,11 @@ install -m 0644 menu/icons/*.png %{buildroot}/%{_iconsdir}
 install -m 0644 menu/icons/large/*.png %{buildroot}/%{_liconsdir}
 install -m 0644 menu/icons/mini/*.png %{buildroot}/%{_miconsdir}
 cp -r menu/icons/hicolor  %{buildroot}/%{_datadir}/icons/
+
+# (tpg) default desktop files
+
+install -d -m 0755 %{_sysconfdir}/etc/skel/Desktop
+install -m 0644 desktop/*.desktop %{_sysconfdir}/etc/skel/Desktop
 
 # XDG menus
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/autostart
