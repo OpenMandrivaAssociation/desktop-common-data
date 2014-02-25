@@ -1,3 +1,4 @@
----
+removed_sources:
+  desktop-common-data-2013.0.tar.xz: b86832614e6fc7a9f9358a68a8b3299e595feb0c
 sources:
-  desktop-common-data-2014.0.tar.xz: 1f056c0e27231cc9af9dd08cde8f80651820d932
+  desktop-common-data-2014.0.tar.xz: 41d8fd3c02b00bf7a8c2092a2feba95e047cda4c

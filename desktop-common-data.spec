@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
-Version:	2014.0
-Release:	1
+Version:	%distro_release
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -27,6 +27,7 @@ Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
+Requires(pre):	etcskel
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
@@ -88,6 +89,11 @@ install -m 0644 menu/icons/*.png %{buildroot}/%{_iconsdir}
 install -m 0644 menu/icons/large/*.png %{buildroot}/%{_liconsdir}
 install -m 0644 menu/icons/mini/*.png %{buildroot}/%{_miconsdir}
 cp -r menu/icons/hicolor  %{buildroot}/%{_datadir}/icons/
+
+# (tpg) default desktop files
+
+install -d -m 0755 %{buildroot}%{_sysconfdir}/skel/Desktop
+install -m 0644 desktop/*.desktop %{buildroot}%{_sysconfdir}/skel/Desktop
 
 # XDG menus
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/autostart
@@ -192,6 +198,8 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
 %{_datadir}/mdk/faces/*
+%dir %{_sysconfdir}/skel/Desktop
+%{_sysconfdir}/skel/Desktop/*.desktop
 %dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
 %dir %{_datadir}/mdk/bookmarks
