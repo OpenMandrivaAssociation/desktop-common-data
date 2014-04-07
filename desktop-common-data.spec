@@ -3,7 +3,7 @@ Name:		desktop-common-data
 Version:	2013.0
 Release:	8
 License:	GPLv2+
-URL:		http://www.mandriva.com/
+URL:		%{disturl}
 Group:		System/Configuration/Other
 
 # get the source from our svn repository (svn+ssh://svn.mandriva.com/svn/soft/desktop-common-data/)
@@ -11,21 +11,14 @@ Group:		System/Configuration/Other
 # to generate this tarball, from svn repository above, 
 # run "make dist VERSION=%{version} RELEASE=xxmdk"
 # where xx is version used for mkrel
+# LATEST SOURCE https://abf.rosalinux.ru/moondrake/desktop-common-data
 Source0:	%{name}-%{version}.tar.xz
-Patch0:		desktop-common-data-2011.0-menu.patch
 
 BuildRequires:	intltool
 BuildRequires:	menu-messages
 BuildRequires:	gettext
 BuildRequires:	libxml2-utils
 BuildArch:	noarch
-Obsoletes:	mandrake_desk < %{version}
-Provides:	mandrake_desk
-Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
-Obsoletes:	menu < %{version}
-Obsoletes:	menu-xdg  < %{version}
-Provides:	menu-xdg
-Provides:	menu = 2.1.24
 Requires:	menu-messages
 Requires:	xdg-utils
 Requires:	xdg-user-dirs
@@ -61,6 +54,14 @@ Requires(postun):update-alternatives
 %description -n	faces-default
 Default set of face icons that were used in Mandriva Linux 2011.
 
+%package -n	faces-openmandriva
+Summary:	Default set of face icons from Mandriva Linux 2011
+Group:		System/Configuration/Other
+Provides:	faces-icons
+Requires(post):	update-alternatives
+Requires(postun):update-alternatives
+Conflicts:	desktop-common-data < 2013.0-9
+
 %package -n	sound-theme-moondrake
 Summary: 	Moondrake sound theme
 Url:		http://www.christianaugustin.com
@@ -73,7 +74,6 @@ A new sound theme created for Moondrake GNU/Linux 2013 by Christian Augustin.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 make
@@ -82,9 +82,6 @@ make
 ## Install backgrounds
 # User & root's backgrounds
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/backgrounds/
-install -m644 backgrounds/default.png %{buildroot}/%{_datadir}/mdk/backgrounds/
-install -m 0644 backgrounds/flower.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
-install -m 0644 backgrounds/nature.jpg %{buildroot}/%{_datadir}/mdk/backgrounds/
 
 # XFdrake test card
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/xfdrake/
@@ -98,13 +95,13 @@ ln -sr %{buildroot}%{_datadir}/mdk/backgrounds %{buildroot}%{_datadir}/wallpaper
 # /usr/bin/
 install -d -m 0755 %{buildroot}/%{_bindir}/
 for i in bin/*.sh ; do install -m 0755 $i %{buildroot}/%{_bindir}/ ; done
+install -m 0755 bin/editor %{buildroot}/%{_bindir}/
 install -m 0755 bin/www-browser %{buildroot}/%{_bindir}/
 install -m 0755 bin/xvt %{buildroot}/%{_bindir}/
 
 # /usr/sbin/
 install -d -m 0755 %{buildroot}/%{_sbindir}/
 for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
-
 
 ## Install faces
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
@@ -121,8 +118,6 @@ ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/user-defau
 # kdm
 install -d -m 0755 %{buildroot}/%{_datadir}/apps/kdm/pics/
 install -m 0644 kde/kdm-mdk-logo.png %{buildroot}/%{_datadir}/apps/kdm/pics/
-
-
 
 ## icons
 install -d -m 0755 %{buildroot}/%{_miconsdir} %{buildroot}/%{_liconsdir}
@@ -154,7 +149,7 @@ for i in %{_datadir}/locale/*/LC_MESSAGES/menu-messages.mo ; do
 done
 
 install -d -m 0755 %{buildroot}/%{_var}/lib/menu
- 
+
 for i in menu/desktop-directories/*.in ; do
  %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %{buildroot}/%{_datadir}/desktop-directories/`basename $i .in` 2>&1 | grep -q "Odd number of elements in hash assignment" && echo "menu message po broken (see bug #25895), aborting " && exit 1
 done
@@ -194,7 +189,6 @@ touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/device.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/bell.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
-
 
 %post
 if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
@@ -238,9 +232,7 @@ fi
 
 %files
 %{_bindir}/*
-#
 %{_sbindir}/*
-
 %{_sysconfdir}/profile.d/*
 %dir %{_sysconfdir}/menu.d
 %dir %{_sysconfdir}/xdg
@@ -248,37 +240,23 @@ fi
 %dir %{_sysconfdir}/xdg/menus/applications-merged
 %config(noreplace) %{_sysconfdir}/xdg/menus/*.menu
 %dir %{_var}/lib/menu
-
-#
 %dir %{_datadir}/faces/
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
-#
-%dir %{_datadir}/mdk/backgrounds/
-%{_datadir}/mdk/backgrounds/*.jpg
-%{_datadir}/mdk/backgrounds/default.png
-
+%dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
-
-
 %dir %{_datadir}/mdk/bookmarks
 %dir %{_datadir}/mdk/bookmarks/konqueror
 %{_datadir}/mdk/bookmarks/konqueror/*.xml
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
-#
 %dir %{_datadir}/apps/kdm/pics/
 %{_datadir}/apps/kdm/pics/*
-#
 %dir %{_datadir}/mdk/xfdrake/
 %{_datadir}/mdk/xfdrake/*.png
-#
-
 %{_datadir}/sounds/ia_ora
-
 %{_datadir}/mdk/dm
-#
 %{_iconsdir}/*.png
 %{_liconsdir}/*.png
 %{_miconsdir}/*.png
