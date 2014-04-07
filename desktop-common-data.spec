@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
-Version:	2013.0
-Release:	8
+Version:	2014.0
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -27,6 +27,11 @@ Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
 Requires:	faces-icons
+Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
+Requires(pre):	etcskel
+%rename		mandrake_desk
+%rename		menu
+%rename		menu-xdg
 
 %description
 This package contains useful icons, menu structure and others goodies for the
@@ -43,16 +48,6 @@ Requires(postun):update-alternatives
 %description -n	faces-moondrake
 Penguin faces from previous Mandriva Linux releases, originally drawn by
 Helene Durosini, rescaled and enhanced by Anette Norli.
-
-%package -n	faces-default
-Summary:	Default set of face icons from Mandriva Linux 2011
-Group:		System/Configuration/Other
-Provides:	faces-icons
-Requires(post):	update-alternatives
-Requires(postun):update-alternatives
-
-%description -n	faces-default
-Default set of face icons that were used in Mandriva Linux 2011.
 
 %package -n	faces-openmandriva
 Summary:	Default set of face icons from Mandriva Linux 2011
@@ -76,15 +71,15 @@ A new sound theme created for Moondrake GNU/Linux 2013 by Christian Augustin.
 %setup -q
 
 %build
-make
+%make
 
 %install
 ## Install backgrounds
 # User & root's backgrounds
-install -d -m 0755 %{buildroot}/%{_datadir}/mdk/backgrounds/
+install -d -m 0755 %{buildroot}%{_datadir}/mdk/backgrounds/
 
 # XFdrake test card
-install -d -m 0755 %{buildroot}/%{_datadir}/mdk/xfdrake/
+install -d -m 0755 %{buildroot}%{_datadir}/mdk/xfdrake/
 install -m 0644 backgrounds/xfdrake-test-card.png %{buildroot}/%{_datadir}/mdk/xfdrake/xfdrake-test-card.png
 
 # for easy access for users looking for wallpapers at expected location
@@ -125,6 +120,11 @@ install -m 0644 menu/icons/*.png %{buildroot}/%{_iconsdir}
 install -m 0644 menu/icons/large/*.png %{buildroot}/%{_liconsdir}
 install -m 0644 menu/icons/mini/*.png %{buildroot}/%{_miconsdir}
 cp -r menu/icons/hicolor  %{buildroot}/%{_datadir}/icons/
+
+# (tpg) default desktop files
+
+install -d -m 0755 %{buildroot}%{_sysconfdir}/skel/Desktop
+install -m 0644 desktop/*.desktop %{buildroot}%{_sysconfdir}/skel/Desktop
 
 # XDG menus
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/autostart
@@ -222,12 +222,12 @@ if [ "$1" = "0" ]; then
   update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png
 fi
 
-%post -n faces-default
-update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/02-default/default.png 1
+%post -n faces-openmandriva
+update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/01-openmandriva/default.png 1
 
-%postun -n faces-default
+%postun -n faces-openmandriva
 if [ "$1" = "0" ]; then
-  update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/02-default/default.png
+  update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/01-openmandriva/default.png
 fi
 
 %files
@@ -244,6 +244,8 @@ fi
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
+%dir %{_sysconfdir}/skel/Desktop
+%{_sysconfdir}/skel/Desktop/*.desktop
 %dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
 %dir %{_datadir}/mdk/bookmarks
@@ -267,9 +269,9 @@ fi
 %dir %{_datadir}/mdk/faces/00-moondrake
 %{_datadir}/mdk/faces/00-moondrake/*
 
-%files -n faces-default
-%dir %{_datadir}/mdk/faces/02-default
-%{_datadir}/mdk/faces/02-default/*
+%files -n faces-openmandriva
+%dir %{_datadir}/mdk/faces/01-openmandriva
+%{_datadir}/mdk/faces/01-openmandriva/*
 
 %files -n sound-theme-moondrake
 %{_datadir}/sounds/moondrake
