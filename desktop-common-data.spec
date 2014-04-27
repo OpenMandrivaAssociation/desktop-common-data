@@ -197,7 +197,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %dir %{_datadir}/mdk/faces/
 %{_datadir}/faces/*
 %{_datadir}/mdk/faces/*
-%{buildroot}%{_datadir}/applications/*.desktop
+%{_datadir}/applications/*.desktop
 %dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
 %dir %{_datadir}/mdk/bookmarks
