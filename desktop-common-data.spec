@@ -18,6 +18,7 @@ BuildRequires:	intltool
 BuildRequires:	menu-messages
 BuildRequires:	gettext
 BuildRequires:	libxml2-utils
+BuildRequires:	distro-release-OpenMandriva
 BuildArch:	noarch
 Requires:	menu-messages
 Requires:	xdg-utils
