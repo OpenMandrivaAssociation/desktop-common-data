@@ -98,8 +98,7 @@ install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/autostart
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/menus/applications-merged
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/menu.d %{buildroot}/%{_sysconfdir}/profile.d
-install -m 0644 applications.menu %{buildroot}/%{_sysconfdir}/xdg/menus/applications.menu
-install -m 0644 kde-applications.menu %{buildroot}/%{_sysconfdir}/xdg/menus/kde-applications.menu
+install -m 0644 *.menu %{buildroot}/%{_sysconfdir}/xdg/menus/
 install -m 0755 menu/xdg_menu %{buildroot}/%{_bindir}
 install -m 0755 menu/update-menus %{buildroot}/%{_bindir}/update-menus
 install -m 0644 menu/menustyle.csh %{buildroot}/%{_sysconfdir}/profile.d/30menustyle.csh
