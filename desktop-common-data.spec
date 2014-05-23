@@ -1,6 +1,6 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
-Version:	%distro_release
+Version:	2014.1
 Release:	3
 License:	GPLv2+
 URL:		%{disturl}
@@ -18,7 +18,6 @@ BuildRequires:	intltool
 BuildRequires:	menu-messages
 BuildRequires:	gettext
 BuildRequires:	libxml2-utils
-BuildRequires:	distro-release-OpenMandriva
 BuildArch:	noarch
 Requires:	menu-messages
 Requires:	xdg-utils
