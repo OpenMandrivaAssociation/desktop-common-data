@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2014.1
-Release:	4
+Release:	5
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
