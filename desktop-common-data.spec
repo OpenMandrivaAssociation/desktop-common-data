@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
-Version:	2014.0
-Release:	2
+Version:	2014.1
+Release:	4
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -11,7 +11,7 @@ Group:		System/Configuration/Other
 # to generate this tarball, from svn repository above, 
 # run "make dist VERSION=%{version} RELEASE=xxmdk"
 # where xx is version used for mkrel
-# LATEST SOURCE https://abf.rosalinux.ru/moondrake/desktop-common-data
+# LATEST SOURCE https://abf.rosalinux.ru/software/desktop-common-data
 Source0:	%{name}-%{version}.tar.xz
 
 BuildRequires:	intltool
@@ -121,17 +121,15 @@ install -m 0644 menu/icons/large/*.png %{buildroot}/%{_liconsdir}
 install -m 0644 menu/icons/mini/*.png %{buildroot}/%{_miconsdir}
 cp -r menu/icons/hicolor  %{buildroot}/%{_datadir}/icons/
 
-# (tpg) default desktop files
-
-install -d -m 0755 %{buildroot}%{_sysconfdir}/skel/Desktop
-install -m 0644 desktop/*.desktop %{buildroot}%{_sysconfdir}/skel/Desktop
+# (tpg) default desktop files (do not place them in /etc/skel/Desktop !)
+install -d -m 0755 %{buildroot}%{_datadir}/applications
+install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
 
 # XDG menus
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/autostart
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/menus/applications-merged
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/menu.d %{buildroot}/%{_sysconfdir}/profile.d
-install -m 0644 applications.menu %{buildroot}/%{_sysconfdir}/xdg/menus/applications.menu
-install -m 0644 kde-applications.menu %{buildroot}/%{_sysconfdir}/xdg/menus/kde-applications.menu
+cp -a *.menu %{buildroot}/%{_sysconfdir}/xdg/menus/
 install -m 0755 menu/xdg_menu %{buildroot}/%{_bindir}
 install -m 0755 menu/update-menus %{buildroot}/%{_bindir}/update-menus
 install -m 0644 menu/menustyle.csh %{buildroot}/%{_sysconfdir}/profile.d/30menustyle.csh
@@ -235,6 +233,8 @@ fi
 %{_sbindir}/*
 %{_sysconfdir}/profile.d/*
 %dir %{_sysconfdir}/menu.d
+%dir %{_sysconfdir}/skel/Desktop
+%{_sysconfdir}/skel/Desktop/*.desktop
 %dir %{_sysconfdir}/xdg
 %dir %{_sysconfdir}/xdg/menus
 %dir %{_sysconfdir}/xdg/menus/applications-merged
@@ -243,9 +243,8 @@ fi
 %dir %{_datadir}/faces/
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
-%{_datadir}/faces/*
-%dir %{_sysconfdir}/skel/Desktop
-%{_sysconfdir}/skel/Desktop/*.desktop
+%{_datadir}/mdk/faces/*
+%{_datadir}/applications/*.desktop
 %dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
 %dir %{_datadir}/mdk/bookmarks
