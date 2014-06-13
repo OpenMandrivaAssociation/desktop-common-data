@@ -233,17 +233,16 @@ fi
 %{_sbindir}/*
 %{_sysconfdir}/profile.d/*
 %dir %{_sysconfdir}/menu.d
-%dir %{_sysconfdir}/skel/Desktop
-%{_sysconfdir}/skel/Desktop/*.desktop
 %dir %{_sysconfdir}/xdg
 %dir %{_sysconfdir}/xdg/menus
 %dir %{_sysconfdir}/xdg/menus/applications-merged
 %config(noreplace) %{_sysconfdir}/xdg/menus/*.menu
 %dir %{_var}/lib/menu
 %dir %{_datadir}/faces/
+%{_datadir}/faces/default.png
+%{_datadir}/faces/user-default-mdk.png
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
-%{_datadir}/mdk/faces/*
 %{_datadir}/applications/*.desktop
 %dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
