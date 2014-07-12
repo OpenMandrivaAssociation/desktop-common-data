@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
-Version:	%distro_release
-Release:	3
+Version:	2014.0
+Release:	3.1
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -82,6 +82,9 @@ install -m 0644 faces/default.png %{buildroot}/%{_datadir}/faces/user-default-md
 # kdm
 install -d -m 0755 %{buildroot}/%{_datadir}/apps/kdm/pics/
 install -m 0644 kde/kdm-mdk-logo.png %{buildroot}/%{_datadir}/apps/kdm/pics/
+# kwin
+install -d -m 0755 %{buildroot}/%{_datadir}/apps/kwin/
+install -m 0644 kde/cubecap.png %{buildroot}/%{_datadir}/apps/kwin/omv-cubecap.png
 
 ## icons
 install -d -m 0755 %{buildroot}/%{_miconsdir} %{buildroot}/%{_liconsdir}
@@ -207,6 +210,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_datadir}/mdk/bookmarks/mozilla/*.html
 %dir %{_datadir}/apps/kdm/pics/
 %{_datadir}/apps/kdm/pics/*
+%{_datadir}/apps/kwin/omv-*.png
 %dir %{_datadir}/mdk/xfdrake/
 %{_datadir}/mdk/xfdrake/*.png
 %{_datadir}/sounds/ia_ora
@@ -217,4 +221,3 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_miconsdir}/*.png
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/desktop-directories/*.directory
-
