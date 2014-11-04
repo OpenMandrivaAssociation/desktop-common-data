@@ -1,3 +1,5 @@
+%define _build_pkgcheck_set %{nil}
+
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2014.1
