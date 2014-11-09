@@ -3,7 +3,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2014.1
-Release:	6
+Release:	7
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -31,6 +31,7 @@ Conflicts:	kdelibs-common < 30000000:3.5.2
 Requires:	faces-icons
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
 Requires(pre):	etcskel
+Requires(post):	run-parts
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
