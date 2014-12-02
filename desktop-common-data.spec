@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2014.0
-Release:	3.1
+Release:	3.2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -20,8 +20,11 @@ BuildRequires:	gettext
 BuildRequires:	libxml2-utils
 BuildArch:	noarch
 Requires:	menu-messages
-Requires:	xdg-utils
+#XDG stuff
+Requires:	libxdg-basedir
+Requires:	xdg-compliance
 Requires:	xdg-user-dirs
+Requires:	xdg-utils
 Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
