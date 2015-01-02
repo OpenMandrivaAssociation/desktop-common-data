@@ -3,7 +3,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2014.1
-Release:	9
+Release:	10
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -38,6 +38,9 @@ Requires(post):	run-parts
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
+%if %product_product == "OpenMandriva"
+Requires:	faces-openmandriva
+%endif
 
 %description
 This package contains useful icons, menu structure and others goodies for the
