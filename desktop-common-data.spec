@@ -3,7 +3,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2015.0
-Release:	1
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
