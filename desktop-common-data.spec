@@ -187,8 +187,8 @@ for i in bookmarks/mozilla/*.html ; do
 done
 
 # install sound samples
-%if %{with moondrake}
 install -d -m 0755 %{buildroot}%{_datadir}/sounds
+%if %{with moondrake}
 cp -r sounds/moondrake %{buildroot}%{_datadir}/sounds
 %endif
 
