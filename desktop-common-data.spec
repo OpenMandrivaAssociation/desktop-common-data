@@ -33,7 +33,11 @@ Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
+%if !%{with moondrake}
+Requires:	faces-openmandriva
+%else
 Requires:	faces-icons
+%endif
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
 Requires(pre):	etcskel
 Requires(post):	run-parts
@@ -48,7 +52,15 @@ Requires:	faces-openmandriva
 This package contains useful icons, menu structure and others goodies for the
 %{distribution} desktop.
 
+%package -n	faces-openmandriva
+Summary:	Default set of face icons from Mandriva Linux 2011
+Group:		System/Configuration/Other
+Provides:	faces-icons
+Requires(post):	update-alternatives
+Requires(postun):update-alternatives
+Conflicts:	desktop-common-data < 2013.0-9
 
+%if %{with moondrake}
 %package -n	faces-moondrake
 Summary:	Original classic cute penguins by Helene Durosini, rescaled by Anette Norli
 Url:		http://www.anettenorli.com
@@ -60,17 +72,7 @@ Requires(postun):update-alternatives
 %description -n	faces-moondrake
 Penguin faces from previous Mandriva Linux releases, originally drawn by
 Helene Durosini, rescaled and enhanced by Anette Norli.
-%endif
 
-%package -n	faces-openmandriva
-Summary:	Default set of face icons from Mandriva Linux 2011
-Group:		System/Configuration/Other
-Provides:	faces-icons
-Requires(post):	update-alternatives
-Requires(postun):update-alternatives
-Conflicts:	desktop-common-data < 2013.0-9
-
-%if %{with moondrake}
 %package -n	sound-theme-moondrake
 Summary: 	Moondrake sound theme
 Url:		http://www.christianaugustin.com
