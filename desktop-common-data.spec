@@ -288,14 +288,14 @@ fi
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/desktop-directories/*.directory
 
+%files -n faces-openmandriva
+%dir %{_datadir}/mdk/faces/01-openmandriva
+%{_datadir}/mdk/faces/01-openmandriva/*
+
 %if %{with moondrake}
 %files -n faces-moondrake
 %dir %{_datadir}/mdk/faces/00-moondrake
 %{_datadir}/mdk/faces/00-moondrake/*
-
-%files -n faces-openmandriva
-%dir %{_datadir}/mdk/faces/01-openmandriva
-%{_datadir}/mdk/faces/01-openmandriva/*
 
 %files -n sound-theme-moondrake
 %{_datadir}/sounds/moondrake
