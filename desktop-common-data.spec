@@ -1,9 +1,11 @@
 %define _build_pkgcheck_set %{nil}
 
+%bcond_with moondrake
+
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2015.0
-Release:	2
+Release:	3
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -46,6 +48,7 @@ Requires:	faces-openmandriva
 This package contains useful icons, menu structure and others goodies for the
 %{distribution} desktop.
 
+
 %package -n	faces-moondrake
 Summary:	Original classic cute penguins by Helene Durosini, rescaled by Anette Norli
 Url:		http://www.anettenorli.com
@@ -57,6 +60,7 @@ Requires(postun):update-alternatives
 %description -n	faces-moondrake
 Penguin faces from previous Mandriva Linux releases, originally drawn by
 Helene Durosini, rescaled and enhanced by Anette Norli.
+%endif
 
 %package -n	faces-openmandriva
 Summary:	Default set of face icons from Mandriva Linux 2011
@@ -66,6 +70,7 @@ Requires(post):	update-alternatives
 Requires(postun):update-alternatives
 Conflicts:	desktop-common-data < 2013.0-9
 
+%if %{with moondrake}
 %package -n	sound-theme-moondrake
 Summary: 	Moondrake sound theme
 Url:		http://www.christianaugustin.com
@@ -75,6 +80,7 @@ Conflicts:	desktop-common-data < 2013.0-8
 
 %description -n	sound-theme-moondrake
 A new sound theme created for Moondrake GNU/Linux 2013 by Christian Augustin.
+%endif
 
 %prep
 %setup -q
@@ -179,8 +185,10 @@ for i in bookmarks/mozilla/*.html ; do
 done
 
 # install sound samples
+%if %{with moondrake}
 install -d -m 0755 %{buildroot}%{_datadir}/sounds
 cp -r sounds/moondrake %{buildroot}%{_datadir}/sounds
+%endif
 
 #install sound theme Ia Ora
 cp -r sounds/ia_ora %{buildroot}%{_datadir}/sounds
@@ -221,6 +229,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %triggerpostun -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
 %{_sbindir}/fndSession
 
+%if %{with moondrake}
 %post -n faces-moondrake
 update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png 10
 
@@ -228,6 +237,7 @@ update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.pn
 if [ "$1" = "0" ]; then
   update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png
 fi
+%endif
 
 %post -n faces-openmandriva
 update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/01-openmandriva/default.png 1
@@ -272,6 +282,7 @@ fi
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/desktop-directories/*.directory
 
+%if %{with moondrake}
 %files -n faces-moondrake
 %dir %{_datadir}/mdk/faces/00-moondrake
 %{_datadir}/mdk/faces/00-moondrake/*
@@ -282,3 +293,4 @@ fi
 
 %files -n sound-theme-moondrake
 %{_datadir}/sounds/moondrake
+%endif
