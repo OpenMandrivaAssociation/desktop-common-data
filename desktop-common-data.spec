@@ -118,7 +118,11 @@ for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
 ## Install faces
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
 install -d -m 0755 %{buildroot}/%{_datadir}/faces/
-cp -a faces/*/ %{buildroot}/%{_datadir}/mdk/faces/
+%if %{with moondrake}
+cp -a faces/00-moondrake/ %{buildroot}/%{_datadir}/mdk/faces/
+%endif
+cp -a faces/01-openmandriva/ %{buildroot}/%{_datadir}/mdk/faces/
+
 
 # David - 9.0-5mdk - For KDE
 ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/default.png
