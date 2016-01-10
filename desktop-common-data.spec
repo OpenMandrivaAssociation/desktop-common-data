@@ -116,7 +116,7 @@ install -d -m 0755 %{buildroot}/%{_datadir}/faces/
 %if %{with moondrake}
 cp -a faces/00-moondrake/ %{buildroot}/%{_datadir}/mdk/faces/
 %endif
-cp -a faces/01-openmandriva/ %{buildroot}/%{_datadir}/mdk/faces/
+cp -a faces/*.png %{buildroot}/%{_datadir}/mdk/faces/
 
 
 # David - 9.0-5mdk - For KDE
