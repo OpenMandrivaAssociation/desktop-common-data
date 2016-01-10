@@ -5,17 +5,12 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2015.0
-Release:	3
+Release:	4
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
 
-# get the source from our svn repository (svn+ssh://svn.mandriva.com/svn/soft/desktop-common-data/)
-# no extra source or patch are allowed here.
-# to generate this tarball, from svn repository above, 
-# run "make dist VERSION=%{version} RELEASE=xxmdk"
-# where xx is version used for mkrel
-# LATEST SOURCE https://abf.rosalinux.ru/software/desktop-common-data
+# LATEST SOURCE https://abf.io/omv_software/desktop-common-data
 Source0:	%{name}-%{version}.tar.xz
 
 BuildRequires:	intltool
@@ -175,7 +170,7 @@ done
 
 #install theme for GDM/KDM
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/dm
-for i in dm/*.png dm/*.desktop dm/*.xml ; do 
+for i in dm/*.png dm/*.desktop dm/*.xml ; do
   install -m 0644 $i %{buildroot}/%{_datadir}/mdk/dm/
 done
 
@@ -213,9 +208,9 @@ touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
 
 %post
 if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
-	%{_sbindir}/convertsession -f %{_sysconfdir}/X11/window-managers.rpmsave || :
+    %{_sbindir}/convertsession -f %{_sysconfdir}/X11/window-managers.rpmsave || :
 fi
-%make_session
+
 # (cg) See sound-theme-freedesktop for explanation about touch.
 touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 
@@ -226,14 +221,8 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %triggerin -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
 
-%triggerin -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
-%{_sbindir}/fndSession
-
 %triggerpostun -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
-
-%triggerpostun -- %{_datadir}/X11/dm.d/*.conf, %{_sysconfdir}/X11/wmsession.d/*
-%{_sbindir}/fndSession
 
 %if %{with moondrake}
 %post -n faces-moondrake
