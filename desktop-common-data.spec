@@ -278,8 +278,7 @@ fi
 %{_datadir}/desktop-directories/*.directory
 
 %files -n faces-openmandriva
-%dir %{_datadir}/mdk/faces/01-openmandriva
-%{_datadir}/mdk/faces/01-openmandriva/*
+%{_datadir}/mdk/faces/*.png
 
 %if %{with moondrake}
 %files -n faces-moondrake
