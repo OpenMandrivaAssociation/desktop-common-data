@@ -5,7 +5,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2015.0
-Release:	4
+Release:	5
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -226,7 +226,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 
 %if %{with moondrake}
 %post -n faces-moondrake
-update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png 10
+update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png 1
 
 %postun -n faces-moondrake
 if [ "$1" = "0" ]; then
@@ -235,7 +235,7 @@ fi
 %endif
 
 %post -n faces-openmandriva
-update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/01-openmandriva/default.png 1
+update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/default.png 10
 
 %postun -n faces-openmandriva
 if [ "$1" = "0" ]; then
