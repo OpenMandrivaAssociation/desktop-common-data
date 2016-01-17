@@ -5,7 +5,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2015.0
-Release:	5
+Release:	6
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -232,7 +232,6 @@ update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.pn
 if [ "$1" = "0" ]; then
   update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png
 fi
-%endif
 
 %post -n faces-openmandriva
 update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/default.png 10
@@ -241,6 +240,7 @@ update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.pn
 if [ "$1" = "0" ]; then
   update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/01-openmandriva/default.png
 fi
+%endif
 
 %files
 %{_bindir}/*
