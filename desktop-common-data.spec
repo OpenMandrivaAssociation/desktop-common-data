@@ -1,11 +1,9 @@
 %define _build_pkgcheck_set %{nil}
 
-%bcond_with moondrake
-
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2015.0
-Release:	7
+Release:	8
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -28,11 +26,7 @@ Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
-%if !%{with moondrake}
-Requires:	faces-openmandriva
-%else
 Requires:	faces-icons
-%endif
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
 Requires(pre):	etcskel
 Requires(post):	run-parts
@@ -54,30 +48,6 @@ Provides:	faces-icons
 Requires(post):	update-alternatives
 Requires(postun):update-alternatives
 Conflicts:	desktop-common-data < 2013.0-9
-
-%if %{with moondrake}
-%package -n	faces-moondrake
-Summary:	Original classic cute penguins by Helene Durosini, rescaled by Anette Norli
-Url:		http://www.anettenorli.com
-Group:		System/Configuration/Other
-Provides:	faces-icons
-Requires(post):	update-alternatives
-Requires(postun):update-alternatives
-
-%description -n	faces-moondrake
-Penguin faces from previous Mandriva Linux releases, originally drawn by
-Helene Durosini, rescaled and enhanced by Anette Norli.
-
-%package -n	sound-theme-moondrake
-Summary: 	Moondrake sound theme
-Url:		http://www.christianaugustin.com
-Group:		System/Configuration/Other
-Provides:	fdo-sound-theme
-Conflicts:	desktop-common-data < 2013.0-8
-
-%description -n	sound-theme-moondrake
-A new sound theme created for Moondrake GNU/Linux 2013 by Christian Augustin.
-%endif
 
 %prep
 %setup -q
@@ -113,9 +83,6 @@ for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
 ## Install faces
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
 install -d -m 0755 %{buildroot}/%{_datadir}/faces/
-%if %{with moondrake}
-cp -a faces/00-moondrake/ %{buildroot}/%{_datadir}/mdk/faces/
-%endif
 cp -a faces/*.png %{buildroot}/%{_datadir}/mdk/faces/
 
 
@@ -176,20 +143,17 @@ done
 
 # install bookmarks
 install -d -m 0755 %{buildroot}%{_datadir}/mdk/bookmarks/konqueror
-for i in bookmarks/konqueror/*.xml ; do 
+for i in bookmarks/konqueror/*.xml ; do
   install -m 0644 $i %{buildroot}%{_datadir}/mdk/bookmarks/konqueror
 done
 
 install -d -m 0755 %{buildroot}%{_datadir}/mdk/bookmarks/mozilla
-for i in bookmarks/mozilla/*.html ; do 
+for i in bookmarks/mozilla/*.html ; do
   install -m 0644 $i %{buildroot}%{_datadir}/mdk/bookmarks/mozilla
 done
 
 # install sound samples
 install -d -m 0755 %{buildroot}%{_datadir}/sounds
-%if %{with moondrake}
-cp -r sounds/moondrake %{buildroot}%{_datadir}/sounds
-%endif
 
 #install sound theme Ia Ora
 cp -r sounds/ia_ora %{buildroot}%{_datadir}/sounds
@@ -223,24 +187,6 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 
 %triggerpostun -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
-
-%if %{with moondrake}
-%post -n faces-moondrake
-update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png 1
-
-%postun -n faces-moondrake
-if [ "$1" = "0" ]; then
-  update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/00-moondrake/plaintux.png
-fi
-
-%post -n faces-openmandriva
-update-alternatives --install %{_datadir}/mdk/faces/default.png default-faces.png %{_datadir}/mdk/faces/default.png 10
-
-%postun -n faces-openmandriva
-if [ "$1" = "0" ]; then
-  update-alternatives --remove default-faces.png %{_datadir}/mdk/faces/01-openmandriva/default.png
-fi
-%endif
 
 %files
 %{_bindir}/*
@@ -279,12 +225,3 @@ fi
 
 %files -n faces-openmandriva
 %{_datadir}/mdk/faces/*.png
-
-%if %{with moondrake}
-%files -n faces-moondrake
-%dir %{_datadir}/mdk/faces/00-moondrake
-%{_datadir}/mdk/faces/00-moondrake/*
-
-%files -n sound-theme-moondrake
-%{_datadir}/sounds/moondrake
-%endif
