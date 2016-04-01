@@ -143,7 +143,7 @@ done
 
 # install bookmarks
 install -d -m 0755 %{buildroot}%{_datadir}/mdk/bookmarks/konqueror
-for i in bookmarks/konqueror/*.xml ; do
+for i in bookmarks/konqueror/*.html ; do
   install -m 0644 $i %{buildroot}%{_datadir}/mdk/bookmarks/konqueror
 done
 
@@ -208,7 +208,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_datadir}/wallpapers/mdk
 %dir %{_datadir}/mdk/bookmarks
 %dir %{_datadir}/mdk/bookmarks/konqueror
-%{_datadir}/mdk/bookmarks/konqueror/*.xml
+%{_datadir}/mdk/bookmarks/konqueror/*.html
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
 %dir %{_datadir}/apps/kdm/pics/
