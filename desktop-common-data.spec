@@ -9,7 +9,7 @@ License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
 
-# LATEST SOURCE https://abf.io/omv_software/desktop-common-data
+# LATEST SOURCE https://github.com/OpenMandrivaSoftware/desktop-common-data
 Source0:	%{name}-%{version}.tar.xz
 
 BuildRequires:	intltool
