@@ -222,6 +222,7 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_liconsdir}/*.png
 %{_miconsdir}/*.png
 %{_datadir}/icons/hicolor/*/*/*.png
+%{_datadir}/icons/hicolor/*/*/*.svg
 %{_datadir}/desktop-directories/*.directory
 
 %files -n faces-openmandriva
