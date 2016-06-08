@@ -1,7 +1,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Version:	2014.0
-Release:	3.4
+Release:	3.5
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -163,6 +163,10 @@ touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/device.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/bell.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
 touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
+
+# (tpg) fix links
+sed -i -e 's#^URL=.*#URL=https://www.openmandriva.org/Donate#g' %{buildroot}%{_datadir}/applications/donate.desktop
+sed -i -e 's#^URL=.*#URL=https://www.openmandriva.org/Join-contribute#g' %{buildroot}%{_datadir}/applications/join.desktop
 
 %post
 if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
