@@ -4,7 +4,7 @@ Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
 Version:	3.0
-Release:	0.3
+Release:	1
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
