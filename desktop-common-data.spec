@@ -4,7 +4,7 @@ Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
 Version:	3.0
-Release:	1
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -29,8 +29,9 @@ Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
 Requires:	faces-icons
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
-Requires(pre):	etcskel
+Requires(post):	etcskel
 Requires(post):	run-parts
+Requires:	shared-mime-info
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
@@ -95,8 +96,8 @@ ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/user-defau
 
 ## KDE
 # kdm
-install -d -m 0755 %{buildroot}/%{_datadir}/apps/kdm/pics/
-install -m 0644 kde/kdm-mdk-logo.png %{buildroot}/%{_datadir}/apps/kdm/pics/
+#install -d -m 0755 %{buildroot}/%{_datadir}/apps/kdm/pics/
+#install -m 0644 kde/kdm-mdk-logo.png %{buildroot}/%{_datadir}/apps/kdm/pics/
 
 ## icons
 install -d -m 0755 %{buildroot}/%{_miconsdir} %{buildroot}/%{_liconsdir}
@@ -154,34 +155,27 @@ for i in bookmarks/mozilla/*.html ; do
 done
 
 # install sound samples
-install -d -m 0755 %{buildroot}%{_datadir}/sounds
+#install -d -m 0755 %{buildroot}%{_datadir}/sounds
 
 #install sound theme Ia Ora
-cp -r sounds/ia_ora %{buildroot}%{_datadir}/sounds
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/dialog.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/power.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/battery.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/suspend.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/screen-capture.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/service.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/system.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/desktop.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/device.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/bell.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
-touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
+#cp -r sounds/ia_ora %{buildroot}%{_datadir}/sounds
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/dialog.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/power.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/battery.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/suspend.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/screen-capture.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/service.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/system.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/desktop.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/device.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/bell.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
+#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
 
 %post
 if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
     %{_sbindir}/convertsession -f %{_sysconfdir}/X11/window-managers.rpmsave || :
 fi
-
-# (cg) See sound-theme-freedesktop for explanation about touch.
-touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
-
-%postun
-# (cg) See sound-theme-freedesktop for explanation about touch.
-touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 
 %triggerin -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
 %{_bindir}/update-menus
@@ -212,11 +206,11 @@ touch --no-create %{_datadir}/sounds %{_datadir}/sounds/ia_ora
 %{_datadir}/mdk/bookmarks/konqueror/*.html
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
-%dir %{_datadir}/apps/kdm/pics/
-%{_datadir}/apps/kdm/pics/*
+#%dir %{_datadir}/apps/kdm/pics/
+#%{_datadir}/apps/kdm/pics/*
 %dir %{_datadir}/mdk/xfdrake/
 %{_datadir}/mdk/xfdrake/*.png
-%{_datadir}/sounds/ia_ora
+#%{_datadir}/sounds/ia_ora
 %{_datadir}/mdk/dm
 %{_iconsdir}/*.png
 %{_liconsdir}/*.png
