@@ -3,14 +3,14 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
-Version:	3.0
-Release:	4
+Version:	3.0.1
+Release:	1
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
 
 # LATEST SOURCE https://github.com/OpenMandrivaSoftware/desktop-common-data
-Source0:	%{name}-%{version}.tar.xz
+Source0:	%{name}-%{version}.tar.gz
 
 BuildRequires:	intltool
 BuildRequires:	menu-messages
