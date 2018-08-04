@@ -27,7 +27,6 @@ Requires:	run-parts
 Requires(post):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Conflicts:	kdelibs-common < 30000000:3.5.2
-Requires:	faces-icons
 Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
 Requires(post):	etcskel
 Requires(post):	run-parts
@@ -35,19 +34,12 @@ Requires:	shared-mime-info
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
-Requires:	faces-openmandriva
+%rename	faces-openmandriva
+%rename faces-icons
 
 %description
 This package contains useful icons, menu structure and others goodies for the
 %{distribution} desktop.
-
-%package -n	faces-openmandriva
-Summary:	Default set of face icons from Mandriva Linux 2011
-Group:		System/Configuration/Other
-Provides:	faces-icons
-Requires(post):	update-alternatives
-Requires(postun):update-alternatives
-Conflicts:	desktop-common-data < 2013.0-9
 
 %prep
 %setup -q
@@ -84,7 +76,6 @@ for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
 install -d -m 0755 %{buildroot}/%{_datadir}/faces/
 cp -a faces/*.png %{buildroot}/%{_datadir}/mdk/faces/
-
 
 # David - 9.0-5mdk - For KDE
 ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/default.png
@@ -175,10 +166,10 @@ if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
     %{_sbindir}/convertsession -f %{_sysconfdir}/X11/window-managers.rpmsave || :
 fi
 
-%triggerin -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
+%transfiletriggerin -- %{_datadir}/applications/ %{_datadir}/applications/*/
 %{_bindir}/update-menus
 
-%triggerpostun -- %{_datadir}/applications/*.desktop, %{_datadir}/applications/*/*.desktop
+%transfiletriggerpostun -- %{_datadir}/applications/ %{_datadir}/applications/*/
 %{_bindir}/update-menus
 
 %files
@@ -196,6 +187,7 @@ fi
 %{_datadir}/faces/user-default-mdk.png
 %dir %{_datadir}/mdk/
 %dir %{_datadir}/mdk/faces/
+%{_datadir}/mdk/faces/*.png
 %{_datadir}/applications/*.desktop
 %dir %{_datadir}/mdk/backgrounds
 %{_datadir}/wallpapers/mdk
@@ -216,6 +208,3 @@ fi
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/icons/hicolor/*/*/*.svg
 %{_datadir}/desktop-directories/*.directory
-
-%files -n faces-openmandriva
-%{_datadir}/mdk/faces/*.png
