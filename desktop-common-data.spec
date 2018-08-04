@@ -35,9 +35,7 @@ Requires:	shared-mime-info
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
-%if %product_product == "OpenMandriva"
 Requires:	faces-openmandriva
-%endif
 
 %description
 This package contains useful icons, menu structure and others goodies for the
