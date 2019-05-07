@@ -1,10 +1,11 @@
 %define _build_pkgcheck_set %{nil}
+%global __requires_exclude '^perl.*'
 
 Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
 Version:	3.0.1
-Release:	3
+Release:	4
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
