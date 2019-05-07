@@ -1,5 +1,5 @@
 %define _build_pkgcheck_set %{nil}
-%global __requires_exclude '/usr/bin/perl|perl\\(.*\\)'
+%global __requires_exclude /usr/bin/perl|perl\\(.*\\)
 
 Summary:	Desktop common files
 Name:		desktop-common-data
