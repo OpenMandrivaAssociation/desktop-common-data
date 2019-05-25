@@ -4,21 +4,19 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
-Version:	3.0.1
-Release:	5
+Version:	3.0.2
+Release:	1
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
 
 # LATEST SOURCE https://github.com/OpenMandrivaSoftware/desktop-common-data
-Source0:	%{name}-%{version}.tar.gz
+Source0:	https://github.com/OpenMandrivaSoftware/desktop-common-data/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:	intltool
-BuildRequires:	menu-messages
 BuildRequires:	gettext
 BuildRequires:	libxml2-utils
 BuildArch:	noarch
-Requires:	menu-messages
 #XDG stuff
 Requires:	libxdg-basedir
 Requires:	xdg-compliance
@@ -32,6 +30,7 @@ Conflicts:	kdebase-kdm-config-file < 1:3.2-62mdk
 Requires(post):	etcskel
 Requires(post):	run-parts
 Requires:	shared-mime-info
+Obsoletes:	menu-messages
 %rename		mandrake_desk
 %rename		menu
 %rename		menu-xdg
@@ -46,16 +45,12 @@ This package contains useful icons, menu structure and others goodies for the
 %setup -q
 
 %build
-%make
+#make
 
 %install
 ## Install backgrounds
 # User & root's backgrounds
 install -d -m 0755 %{buildroot}%{_datadir}/mdk/backgrounds/
-
-# XFdrake test card
-install -d -m 0755 %{buildroot}%{_datadir}/mdk/xfdrake/
-install -m 0644 backgrounds/xfdrake-test-card.png %{buildroot}/%{_datadir}/mdk/xfdrake/xfdrake-test-card.png
 
 # for easy access for users looking for wallpapers at expected location
 install -d %{buildroot}%{_datadir}/wallpapers
@@ -64,14 +59,9 @@ ln -sr %{buildroot}%{_datadir}/mdk/backgrounds %{buildroot}%{_datadir}/wallpaper
 ## Install scripts
 # /usr/bin/
 install -d -m 0755 %{buildroot}/%{_bindir}/
-for i in bin/*.sh ; do install -m 0755 $i %{buildroot}/%{_bindir}/ ; done
 install -m 0755 bin/editor %{buildroot}/%{_bindir}/
 install -m 0755 bin/www-browser %{buildroot}/%{_bindir}/
 install -m 0755 bin/xvt %{buildroot}/%{_bindir}/
-
-# /usr/sbin/
-install -d -m 0755 %{buildroot}/%{_sbindir}/
-for i in sbin/* ; do install -m 0755 $i %{buildroot}/%{_sbindir}/ ; done
 
 ## Install faces
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/faces/
@@ -99,33 +89,6 @@ cp -r menu/icons/hicolor  %{buildroot}/%{_datadir}/icons/
 # (tpg) default desktop files (do not place them in /etc/skel/Desktop !)
 install -d -m 0755 %{buildroot}%{_datadir}/applications
 install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
-
-# XDG menus
-install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/autostart
-install -d -m 0755 %{buildroot}/%{_sysconfdir}/xdg/menus/applications-merged
-install -d -m 0755 %{buildroot}/%{_sysconfdir}/menu.d %{buildroot}/%{_sysconfdir}/profile.d
-cp -a *.menu %{buildroot}/%{_sysconfdir}/xdg/menus/
-install -m 0755 menu/xdg_menu %{buildroot}/%{_bindir}
-install -m 0755 menu/update-menus %{buildroot}/%{_bindir}/update-menus
-install -m 0644 menu/menustyle.csh %{buildroot}/%{_sysconfdir}/profile.d/30menustyle.csh
-install -m 0644 menu/menustyle.sh  %{buildroot}/%{_sysconfdir}/profile.d/30menustyle.sh
-
-if [ "%_install_langs" != "all" ]; then
- echo ERROR : rpm macro %%_install_langs is not set to \"all\", causing some translations to not be available on your build system and therefore preventing building this package. Add \"%%_install_langs all\" to /etc/rpm/macros and force a reinstall of mdk-menu-messages package to ensure all translations are installed on this system before rebuilding this package
- return 1
-fi
-
-install -d -m 0755 %{buildroot}/%{_datadir}/desktop-directories
-mkdir -p tmp-l10n
-for i in %{_datadir}/locale/*/LC_MESSAGES/menu-messages.mo ; do
- msgunfmt $i > tmp-l10n/`echo $i | sed -e 's|%{_datadir}/locale/||' -e 's|/LC.*||'`.po
-done
-
-install -d -m 0755 %{buildroot}/%{_var}/lib/menu
-
-for i in menu/desktop-directories/*.in ; do
- %{_bindir}/intltool-merge --desktop-style -c tmp-l10n/cache tmp-l10n $i %{buildroot}/%{_datadir}/desktop-directories/`basename $i .in` 2>&1 | grep -q "Odd number of elements in hash assignment" && echo "menu message po broken (see bug #25895), aborting " && exit 1
-done
 
 #install theme for GDM/KDM
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/dm
@@ -162,27 +125,16 @@ done
 #touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
 #touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
 
-%post
-if [ -f %{_sysconfdir}/X11/window-managers.rpmsave ];then
-    %{_sbindir}/convertsession -f %{_sysconfdir}/X11/window-managers.rpmsave || :
-fi
-
-%transfiletriggerin -- %{_datadir}/applications/ %{_datadir}/applications/*/
-%{_bindir}/update-menus
-
-%transfiletriggerpostun -- %{_datadir}/applications/ %{_datadir}/applications/*/
-%{_bindir}/update-menus
+mkdir -p %{buildroot}%{_sysconfdir}/xdg/menus
+ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/applications.menu
+ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/kde-applications.menu
+ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/gnome-applications.menu
 
 %files
 %{_bindir}/*
-%{_sbindir}/*
-%{_sysconfdir}/profile.d/*
-%dir %{_sysconfdir}/menu.d
 %dir %{_sysconfdir}/xdg
 %dir %{_sysconfdir}/xdg/menus
-%dir %{_sysconfdir}/xdg/menus/applications-merged
 %config(noreplace) %{_sysconfdir}/xdg/menus/*.menu
-%dir %{_var}/lib/menu
 %dir %{_datadir}/faces/
 %{_datadir}/faces/default.png
 %{_datadir}/faces/user-default-mdk.png
@@ -199,8 +151,6 @@ fi
 %{_datadir}/mdk/bookmarks/mozilla/*.html
 #%dir %{_datadir}/apps/kdm/pics/
 #%{_datadir}/apps/kdm/pics/*
-%dir %{_datadir}/mdk/xfdrake/
-%{_datadir}/mdk/xfdrake/*.png
 #%{_datadir}/sounds/ia_ora
 %{_datadir}/mdk/dm
 %{_iconsdir}/*.png
@@ -208,4 +158,3 @@ fi
 %{_miconsdir}/*.png
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/icons/hicolor/*/*/*.svg
-%{_datadir}/desktop-directories/*.directory
