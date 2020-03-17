@@ -4,7 +4,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
-Version:	3.0.2
+Version:	4.1
 Release:	1
 License:	GPLv2+
 URL:		%{disturl}
@@ -74,18 +74,6 @@ ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/default.pn
 # David - 9.0-5mdk - For GDM
 ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/user-default-mdk.png
 
-## KDE
-# kdm
-#install -d -m 0755 %{buildroot}/%{_datadir}/apps/kdm/pics/
-#install -m 0644 kde/kdm-mdk-logo.png %{buildroot}/%{_datadir}/apps/kdm/pics/
-
-## icons
-install -d -m 0755 %{buildroot}/%{_miconsdir} %{buildroot}/%{_liconsdir}
-install -m 0644 menu/icons/*.png %{buildroot}/%{_iconsdir}
-install -m 0644 menu/icons/large/*.png %{buildroot}/%{_liconsdir}
-install -m 0644 menu/icons/mini/*.png %{buildroot}/%{_miconsdir}
-cp -r menu/icons/hicolor  %{buildroot}/%{_datadir}/icons/
-
 # (tpg) default desktop files (do not place them in /etc/skel/Desktop !)
 install -d -m 0755 %{buildroot}%{_datadir}/applications
 install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
@@ -106,24 +94,6 @@ install -d -m 0755 %{buildroot}%{_datadir}/mdk/bookmarks/mozilla
 for i in bookmarks/mozilla/*.html ; do
   install -m 0644 $i %{buildroot}%{_datadir}/mdk/bookmarks/mozilla
 done
-
-# install sound samples
-#install -d -m 0755 %{buildroot}%{_datadir}/sounds
-
-#install sound theme Ia Ora
-#cp -r sounds/ia_ora %{buildroot}%{_datadir}/sounds
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/dialog.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/power.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/battery.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/suspend.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/screen-capture.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/service.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/system.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/desktop.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/device.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/bell.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/message-new-email.disabled
-#touch  %{buildroot}%{_datadir}/sounds/ia_ora/stereo/trash-empty.disabled
 
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/menus
 ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/applications.menu
@@ -149,12 +119,4 @@ ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/g
 %{_datadir}/mdk/bookmarks/konqueror/*.html
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
-#%dir %{_datadir}/apps/kdm/pics/
-#%{_datadir}/apps/kdm/pics/*
-#%{_datadir}/sounds/ia_ora
 %{_datadir}/mdk/dm
-%{_iconsdir}/*.png
-%{_liconsdir}/*.png
-%{_miconsdir}/*.png
-%{_datadir}/icons/hicolor/*/*/*.png
-%{_datadir}/icons/hicolor/*/*/*.svg
