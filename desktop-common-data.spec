@@ -5,7 +5,7 @@ Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
 Version:	4.2
-Release:	1
+Release:	2
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -79,8 +79,8 @@ install -d -m 0755 %{buildroot}%{_datadir}/applications
 install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
 
 # icons
-install -d -m 0755 %{buildroot}%{_iconsdir}/hicolo/scalable
-cp -a icons/*.svg %{buildroot}%{_iconsdir}/hicolo/scalable/
+install -d -m 0755 %{buildroot}%{_iconsdir}/hicolor/scalable
+cp -a icons/*.svg %{buildroot}%{_iconsdir}/hicolor/scalable/
 
 #install theme for GDM/KDM
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/dm
