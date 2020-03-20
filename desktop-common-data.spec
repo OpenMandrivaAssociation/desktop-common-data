@@ -124,4 +124,4 @@ ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/g
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
 %{_datadir}/mdk/dm
-%{_iconsdir}/hicolo/scalable/*.svg
+%{_iconsdir}/hicolor/scalable/*.svg
