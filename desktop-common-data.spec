@@ -5,7 +5,7 @@ Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
 Version:	4.2
-Release:	2
+Release:	3
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
@@ -79,8 +79,8 @@ install -d -m 0755 %{buildroot}%{_datadir}/applications
 install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
 
 # icons
-install -d -m 0755 %{buildroot}%{_iconsdir}/hicolor/scalable
-cp -a icons/*.svg %{buildroot}%{_iconsdir}/hicolor/scalable/
+install -d -m 0755 %{buildroot}%{_iconsdir}/hicolor/scalable/apps
+cp -a icons/*.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 
 #install theme for GDM/KDM
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/dm
@@ -124,4 +124,4 @@ ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/g
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
 %{_datadir}/mdk/dm
-%{_iconsdir}/hicolor/scalable/*.svg
+%{_iconsdir}/hicolor/scalable/apps/*.svg
