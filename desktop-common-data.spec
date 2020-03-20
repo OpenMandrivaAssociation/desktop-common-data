@@ -4,7 +4,7 @@
 Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
-Version:	4.1
+Version:	4.2
 Release:	1
 License:	GPLv2+
 URL:		%{disturl}
@@ -35,7 +35,7 @@ Obsoletes:	menu-messages
 %rename		menu
 %rename		menu-xdg
 %rename	faces-openmandriva
-%rename faces-icons
+%rename	faces-icons
 
 %description
 This package contains useful icons, menu structure and others goodies for the
@@ -77,6 +77,10 @@ ln -s %{_datadir}/mdk/faces/default.png %{buildroot}%{_datadir}/faces/user-defau
 # (tpg) default desktop files (do not place them in /etc/skel/Desktop !)
 install -d -m 0755 %{buildroot}%{_datadir}/applications
 install -m 0644 desktop/*.desktop %{buildroot}%{_datadir}/applications
+
+# icons
+install -d -m 0755 %{buildroot}%{_iconsdir}/hicolo/scalable
+cp -a icons/*.svg %{buildroot}%{_iconsdir}/hicolo/scalable/
 
 #install theme for GDM/KDM
 install -d -m 0755 %{buildroot}/%{_datadir}/mdk/dm
@@ -120,3 +124,4 @@ ln -s ../kde5/menus/kde-applications.menu %{buildroot}%{_sysconfdir}/xdg/menus/g
 %dir %{_datadir}/mdk/bookmarks/mozilla
 %{_datadir}/mdk/bookmarks/mozilla/*.html
 %{_datadir}/mdk/dm
+%{_iconsdir}/hicolo/scalable/*.svg
