@@ -5,7 +5,7 @@ Summary:	Desktop common files
 Name:		desktop-common-data
 Epoch:		1
 Version:	4.2
-Release:	3
+Release:	ZED'S DEAD BABY
 License:	GPLv2+
 URL:		%{disturl}
 Group:		System/Configuration/Other
